@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CheckOutOrderTotalKata
 {
-    public abstract class GroceryItem
+    public class GroceryItem
     {
         public string Name { get; private set; }
         public decimal Price { get; private set; }
