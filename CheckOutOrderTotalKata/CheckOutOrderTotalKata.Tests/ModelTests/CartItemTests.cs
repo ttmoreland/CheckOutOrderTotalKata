@@ -1,6 +1,6 @@
 ﻿using System;
 using Xunit;
-using CheckOutOrderTotalKata;
+using CheckOutOrderTotalKata.Models;
 
 namespace CheckOutOrderTotalKata.Tests
 {
