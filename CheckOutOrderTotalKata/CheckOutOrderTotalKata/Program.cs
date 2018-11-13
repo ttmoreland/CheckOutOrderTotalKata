@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace CheckOutOrderTotalKata
 {
@@ -15,6 +9,11 @@ namespace CheckOutOrderTotalKata
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.File("logs\\Log.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
