@@ -27,6 +27,9 @@ namespace CheckOutOrderTotalKata
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // Registering Memory Cache to persist data
+            services.AddMemoryCache();
+
             // Register Swagger
             services.AddSwaggerGen(c =>
             {
