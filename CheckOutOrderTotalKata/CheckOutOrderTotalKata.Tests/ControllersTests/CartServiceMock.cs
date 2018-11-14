@@ -28,7 +28,8 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         public CartItem Add(CartItem newItem)
         {
-            throw new NotImplementedException();
+            _cart.Add(newItem);
+            return newItem;
         }
 
         public decimal GetCartTotal()

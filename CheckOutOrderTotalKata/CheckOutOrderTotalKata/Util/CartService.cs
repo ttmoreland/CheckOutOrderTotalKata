@@ -24,7 +24,9 @@ namespace CheckOutOrderTotalKata.Util
 
         public CartItem Add(CartItem newItem)
         {
-            throw new NotImplementedException();
+            _cart.Add(newItem);
+            _cache.SetCachedCart(_cart);
+            return newItem;
         }
 
         public decimal GetCartTotal()

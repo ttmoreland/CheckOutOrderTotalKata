@@ -24,6 +24,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             _controller = new CartController(_cart);
         }
 
+        #region Get()
         [Fact]
         public void CartController_Get_ReturnOkResponse()
         {
@@ -38,7 +39,9 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var cartItems = Assert.IsType<List<CartItem>>(okResult.Value);
             Assert.Equal(3, cartItems.Count);
         }
+        #endregion
 
+        #region Getitem()
         [Fact]
         public void CartController_GetItem_ReturnNotFound()
         {
@@ -59,6 +62,28 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var okResult = _controller.Get("Steak").Result as OkObjectResult;
             var item = Assert.IsType<CartItem>(okResult.Value);
         }
-        
+        #endregion
+
+        #region Add()
+        [Fact]
+        public void CartController_AddItem_WeightedItemReturnsBadRequest()
+        {
+            var badItem = new CartItem("", 12, 0);
+            _controller.ModelState.AddModelError("Name", "Required");
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void CartController_AddItem_EachItemReturnsBadRequest()
+        {
+            var badItem = new CartItem("", 0, 0);
+            _controller.ModelState.AddModelError("Name", "Required");
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+        #endregion
+
+
     }
 }
