@@ -87,5 +87,31 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             Assert.Equal(item.Name, itemResult.Name);
         }
         #endregion
+
+        #region Remove()
+        [Fact]
+        public void StoreController_Delete_ReturnsNotFound()
+        {
+            var fakeitem = "SomeFakeitem";
+            var badResponse = _controller.Remove(fakeitem);
+            Assert.IsType<NotFoundResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_Delete_ReturnsOkResult()
+        {
+            var item = "Soup";
+            var okResponse = _controller.Remove(item);
+            Assert.IsType<OkResult>(okResponse);
+        }
+
+        [Fact]
+        public void StoreController_Delete_ValidateRemovesItem()
+        {
+            var item = "Soup";
+            var okResponse = _controller.Remove(item);
+            Assert.Equal(3, _store.GetAllItems().Count());
+        }
+        #endregion
     }
 }

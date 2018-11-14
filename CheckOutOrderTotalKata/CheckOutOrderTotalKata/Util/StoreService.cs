@@ -38,7 +38,9 @@ namespace CheckOutOrderTotalKata.Util
 
         public void Remove(string itemName)
         {
-            throw new NotImplementedException();
+            var existing = this.GetItem(itemName);
+            _cache.SetCachedItem(CacheKeys.Store, _store);
+            _store.Remove(existing);
         }
     }
 }
