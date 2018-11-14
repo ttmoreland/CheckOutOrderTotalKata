@@ -45,6 +45,13 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var notFoundResult = _controller.Get("SomeItemThatDoesntExist");
             Assert.IsType<NotFoundResult>(notFoundResult.Result);
         }
+
+        [Fact]
+        public void CartController_GetItem_ReturnsOkResult()
+        {
+            var okResult = _controller.Get("Soup");
+            Assert.IsType<OkObjectResult>(okResult.Result);
+        }
         
     }
 }
