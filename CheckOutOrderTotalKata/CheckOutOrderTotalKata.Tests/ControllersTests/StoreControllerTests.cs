@@ -22,12 +22,19 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         #region GET()
         [Fact]
-        public void CartController_Get_ReturnOkResponse()
+        public void StoreController_Get_ReturnOkResponse()
         {
             var okResult = _controller.Get();
             Assert.IsType<OkObjectResult>(okResult.Result);
         }
 
+        [Fact]
+        public void StoreController_Get_ReturnsCorrectNumberOfItems()
+        {
+            var okResult = _controller.Get().Result as OkObjectResult;
+            var cartItems = Assert.IsType<List<StoreItem>>(okResult.Value);
+            Assert.Equal(4, cartItems.Count);
+        }
         #endregion
     }
 }

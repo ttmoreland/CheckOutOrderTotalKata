@@ -1,13 +1,24 @@
-﻿using CheckOutOrderTotalKata.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CheckOutOrderTotalKata.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CheckOutOrderTotalKata.Util
 {
     public class StoreService : IBaseService<StoreItem>
     {
+        private readonly List<StoreItem> _cart;
+
+        private readonly IMemoryCache _cache;
+
+        public StoreService(IMemoryCache cache)
+        {
+            _cart = cache.GetCachedItem<StoreItem>(CacheKeys.Store);
+            _cache = cache;
+        }
+
         public StoreItem Add(StoreItem newItem)
         {
             throw new NotImplementedException();
@@ -15,7 +26,7 @@ namespace CheckOutOrderTotalKata.Util
 
         public IEnumerable<StoreItem> GetAllItems()
         {
-            throw new NotImplementedException();
+            return _cart;
         }
 
         public StoreItem GetItem(string itemName)

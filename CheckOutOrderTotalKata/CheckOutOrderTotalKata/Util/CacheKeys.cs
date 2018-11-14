@@ -24,6 +24,6 @@ namespace CheckOutOrderTotalKata.Util
         /// <value>
         /// The grocery item.
         /// </value>
-        public static string GroceryItem { get { return "_GroceryItems"; } }
+        public static string Store { get { return "_Store"; } }
     }
 }
