@@ -10,8 +10,8 @@ namespace CheckOutOrderTotalKata.Util
     /// <summary>
     /// Cart Service
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.IBaseService{CheckOutOrderTotalKata.Models.CartItem}" />
-    public class CartService : IBaseService<CartItem>
+    /// <seealso cref="CheckOutOrderTotalKata.Util.ICartService" />
+    public class CartService : ICartService
     {
         /// <summary>
         /// The cart
@@ -73,6 +73,16 @@ namespace CheckOutOrderTotalKata.Util
             var existing = this.GetItem(itemName);
             _cache.SetCachedItem(CacheKeys.Cart, _cart);
             _cart.Remove(existing);
+        }
+
+        public decimal GetCartTotal()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<StoreItem> GetStoreItems()
+        {
+            throw new NotImplementedException();
         }
     }
 }

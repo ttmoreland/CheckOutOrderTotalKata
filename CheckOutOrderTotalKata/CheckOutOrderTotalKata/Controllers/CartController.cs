@@ -16,13 +16,13 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <summary>
         /// The service
         /// </summary>
-        private readonly IBaseService<CartItem> _cart;
+        private readonly ICartService _cart;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public CartController(IBaseService<CartItem> service)
+        public CartController(ICartService service)
         {
             _cart = service;
         }
