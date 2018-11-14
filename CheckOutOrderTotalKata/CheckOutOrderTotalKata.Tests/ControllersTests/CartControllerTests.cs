@@ -52,6 +52,13 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var okResult = _controller.Get("Soup");
             Assert.IsType<OkObjectResult>(okResult.Result);
         }
+
+        [Fact]
+        public void CartController_GetItem_ReturnsExpectedItem()
+        {
+            var okResult = _controller.Get("Steak").Result as OkObjectResult;
+            var item = Assert.IsType<CartItem>(okResult.Value);
+        }
         
     }
 }
