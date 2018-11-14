@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CheckOutOrderTotalKata.Tests.ControllersTests
 {
-    public class CartServiceMock : IBaseService<CartItem>
+    public class CartServiceMock : ICartService
     {
         private readonly List<CartItem> _cart;
 
@@ -41,6 +41,17 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         {
             var existing = this.GetItem(itemName);
             _cart.Remove(existing);
+        }
+
+        public decimal GetCartTotal()
+        {
+            return 12m;
+        }
+
+        public IEnumerable<StoreItem> GetStoreItems()
+        {
+            var storeItems = new StoreServiceMock();
+            return storeItems.GetAllItems();
         }
     }
 }

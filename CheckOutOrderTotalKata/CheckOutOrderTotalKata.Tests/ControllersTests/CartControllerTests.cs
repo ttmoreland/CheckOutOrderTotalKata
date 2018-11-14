@@ -11,7 +11,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
     public class CartControllerTests
     {
         CartController _controller;
-        IBaseService<CartItem> _cart;
+        ICartService _cart;
 
         public CartControllerTests()
         {
