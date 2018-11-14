@@ -82,6 +82,22 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var badResponse = _controller.Post(badItem);
             Assert.IsType<BadRequestObjectResult>(badResponse);
         }
+
+        [Fact]
+        public void CartController_AddItem_WeightedItemReturnsResponse()
+        {
+            var item = new CartItem("Chorizo", 1.25m, 3.74m);
+            var createdResponse = _controller.Post(item);
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
+
+        [Fact]
+        public void CartController_AddItem_EachItemReturnsResponse()
+        {
+            var item = new CartItem("Beer 12 Pack", 0m, 10.99m);
+            var createdResponse = _controller.Post(item);
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
         #endregion
 
 
