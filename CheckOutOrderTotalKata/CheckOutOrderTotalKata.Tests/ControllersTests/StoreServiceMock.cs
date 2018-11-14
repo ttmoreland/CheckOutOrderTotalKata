@@ -29,7 +29,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         public IEnumerable<StoreItem> GetAllItems()
         {
-            throw new NotImplementedException();
+            return _store;
         }
 
         public StoreItem GetItem(string itemName)
