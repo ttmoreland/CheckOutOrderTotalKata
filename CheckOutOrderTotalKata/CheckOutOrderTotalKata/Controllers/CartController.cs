@@ -16,7 +16,7 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <summary>
         /// The service
         /// </summary>
-        private readonly IBaseService<CartItem> _service;
+        private readonly IBaseService<CartItem> _cart;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
@@ -24,7 +24,7 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <param name="service">The service.</param>
         public CartController(IBaseService<CartItem> service)
         {
-            _service = service;
+            _cart = service;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [HttpGet]
         public ActionResult<List<CartItem>> Get()
         {
-            var items = _service.GetAllItems();
+            var items = _cart.GetAllItems();
             return Ok(items);
         }
 
@@ -46,7 +46,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [HttpGet("{id}")]
         public ActionResult<CartItem> Get(string itemName)
         {
-            var item = _service.GetItem(itemName);
+            var item = _cart.GetItem(itemName);
 
             if (item == null)
             {
@@ -69,7 +69,7 @@ namespace CheckOutOrderTotalKata.Controllers
                 return BadRequest(ModelState);
             }
 
-            var item = _service.Add(value);
+            var item = _cart.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
@@ -81,14 +81,14 @@ namespace CheckOutOrderTotalKata.Controllers
         [HttpDelete("{id}")]
         public ActionResult Remove(string itemName)
         {
-            var existingItem = _service.GetItem(itemName);
+            var existingItem = _cart.GetItem(itemName);
 
             if (existingItem == null)
             {
                 return NotFound();
             }
 
-            _service.Remove(itemName);
+            _cart.Remove(itemName);
             return Ok();
         }
     }
