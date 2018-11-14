@@ -12,6 +12,5 @@ namespace CheckOutOrderTotalKata.Util
         CartItem Add(CartItem newItem);
         CartItem GetItem(string itemName);
         void Remove(string itemName);
-        decimal GetCartTotal();
     }
 }

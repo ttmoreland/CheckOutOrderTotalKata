@@ -13,7 +13,7 @@ namespace CheckOutOrderTotalKata.Util
         private readonly IMemoryCache _cache;
         public CartService(IMemoryCache cache)
         {
-            _cart = cache.GetCachedCart();
+            _cart = cache.GetCachedItem<CartItem>(CacheKeys.Cart);
             _cache = cache;
         }
 
@@ -25,13 +25,8 @@ namespace CheckOutOrderTotalKata.Util
         public CartItem Add(CartItem newItem)
         {
             _cart.Add(newItem);
-            _cache.SetCachedCart(_cart);
+            _cache.SetCachedItem(CacheKeys.Cart, _cart);
             return newItem;
-        }
-
-        public decimal GetCartTotal()
-        {
-            throw new NotImplementedException();
         }
 
         public CartItem GetItem(string itemName)

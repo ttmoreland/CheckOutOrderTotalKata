@@ -10,14 +10,11 @@ namespace CheckOutOrderTotalKata.Models
     {     
         [Required]
         public string Name { get; private set; }
-        public decimal Price { get; private set; }
         public decimal Quantity { get; private set; }
-        public decimal Extension { get { return Price * Quantity; } }
 
-        public CartItem(string Name, decimal Quantity, decimal Price)
+        public CartItem(string Name, decimal Quantity)
         {
-            this.Name = Name;
-            this.Price = Price;       
+            this.Name = Name;      
             if (Quantity == 0)
                 //Each
                 this.Quantity = Quantity;

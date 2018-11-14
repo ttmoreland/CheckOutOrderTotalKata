@@ -8,5 +8,6 @@ namespace CheckOutOrderTotalKata.Util
     public static class CacheKeys
     {
         public static string Cart { get { return "_Cart"; } }
+        public static string GroceryItem { get { return "_GroceryItems"; } }
     }
 }

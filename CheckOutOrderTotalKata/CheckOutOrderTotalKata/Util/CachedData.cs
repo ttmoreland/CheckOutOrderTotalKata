@@ -9,28 +9,28 @@ namespace CheckOutOrderTotalKata.Util
 {
     public static class CachedData
     {
-        public static List<CartItem> GetCachedCart(this IMemoryCache cache)
+        public static List<T> GetCachedItem<T>(this IMemoryCache cache, string cacheKey)
         {
-            List<CartItem> cart;
-            if (!cache.TryGetValue(CacheKeys.Cart, out cart))
+            List<T> item;
+            if (!cache.TryGetValue(CacheKeys.Cart, out item))
             {
                 //Cache doesn't have value so initialize
-                cart = new List<CartItem>();
+                item = new List<T>();
 
-                cache.SetCachedCart(cart);
+                cache.SetCachedItem(cacheKey, item);
             }
 
-            return cart;
+            return item;
         }
 
-        public static void SetCachedCart(this IMemoryCache cache, List<CartItem> cart)
+        public static void SetCachedItem<T>(this IMemoryCache cache, string cacheKey, List<T> items)
         {
             //Set cache value options
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetPriority(CacheItemPriority.NeverRemove);
 
             //Set cache item
-            cache.Set(CacheKeys.Cart, cart, cacheEntryOptions);
+            cache.Set(cacheKey, items, cacheEntryOptions);
         }
     }
 }

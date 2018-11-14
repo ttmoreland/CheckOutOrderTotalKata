@@ -15,9 +15,9 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         {
             _cart = new List<CartItem>()
             {
-                new CartItem("Soup", 1.00m, 12.00m),
-                new CartItem("Steak", 4.75m, 3.00m),
-                new CartItem("Apple", 3.00m, .99m)
+                new CartItem("Soup", 1.00m),
+                new CartItem("Steak", 4.75m),
+                new CartItem("Apple", 3.00m)
             };
         }
 
@@ -30,11 +30,6 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         {
             _cart.Add(newItem);
             return newItem;
-        }
-
-        public decimal GetCartTotal()
-        {
-            throw new NotImplementedException();
         }
 
         public CartItem GetItem(string itemName)

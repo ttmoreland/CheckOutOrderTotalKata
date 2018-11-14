@@ -63,7 +63,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_WeightedItemReturnsBadRequest()
         {
-            var badItem = new CartItem("", 12, 0);
+            var badItem = new CartItem("", 12);
             _controller.ModelState.AddModelError("Name", "Required");
             var badResponse = _controller.Post(badItem);
             Assert.IsType<BadRequestObjectResult>(badResponse);
@@ -72,7 +72,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_EachItemReturnsBadRequest()
         {
-            var badItem = new CartItem("", 0, 0);
+            var badItem = new CartItem("", 0);
             _controller.ModelState.AddModelError("Name", "Required");
             var badResponse = _controller.Post(badItem);
             Assert.IsType<BadRequestObjectResult>(badResponse);
@@ -81,7 +81,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_WeightedItemReturnsResponse()
         {
-            var item = new CartItem("Chorizo", 1.25m, 3.74m);
+            var item = new CartItem("Chorizo", 1.25m);
             var createdResponse = _controller.Post(item);
             Assert.IsType<CreatedAtActionResult>(createdResponse);
         }
@@ -89,7 +89,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_EachItemReturnsResponse()
         {
-            var item = new CartItem("Beer 12 Pack", 0m, 10.99m);
+            var item = new CartItem("Beer 12 Pack", 0m);
             var createdResponse = _controller.Post(item);
             Assert.IsType<CreatedAtActionResult>(createdResponse);
         }
@@ -97,7 +97,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_WeightedItemReturnsResponseCreatedItem()
         {
-            var item = new CartItem("Chorizo", 1.25m, 3.74m);
+            var item = new CartItem("Chorizo", 1.25m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as CartItem;
             Assert.Equal(item.Name, itemResult.Name);
@@ -106,7 +106,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_EachItemReturnsResponseCreatedItem()
         {
-            var item = new CartItem("Beer 12 Pack", 0m, 10.99m);
+            var item = new CartItem("Beer 12 Pack", 0m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as CartItem;
             Assert.Equal(item.Name, itemResult.Name);
