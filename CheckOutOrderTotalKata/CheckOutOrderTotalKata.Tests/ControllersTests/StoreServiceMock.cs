@@ -24,7 +24,8 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         public StoreItem Add(StoreItem newItem)
         {
-            throw new NotImplementedException();
+            _store.Add(newItem);
+            return newItem;
         }
 
         public IEnumerable<StoreItem> GetAllItems()

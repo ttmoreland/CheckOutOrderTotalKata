@@ -9,29 +9,31 @@ namespace CheckOutOrderTotalKata.Util
 {
     public class StoreService : IBaseService<StoreItem>
     {
-        private readonly List<StoreItem> _cart;
+        private readonly List<StoreItem> _store;
 
         private readonly IMemoryCache _cache;
 
         public StoreService(IMemoryCache cache)
         {
-            _cart = cache.GetCachedItem<StoreItem>(CacheKeys.Store);
+            _store = cache.GetCachedItem<StoreItem>(CacheKeys.Store);
             _cache = cache;
         }
 
         public StoreItem Add(StoreItem newItem)
         {
-            throw new NotImplementedException();
+            _store.Add(newItem);
+            _cache.SetCachedItem(CacheKeys.Store, _store);
+            return newItem;
         }
 
         public IEnumerable<StoreItem> GetAllItems()
         {
-            return _cart;
+            return _store;
         }
 
         public StoreItem GetItem(string itemName)
         {
-            return _cart.Where(a => a.Name == itemName).FirstOrDefault();
+            return _store.Where(a => a.Name == itemName).FirstOrDefault();
         }
 
         public void Remove(string itemName)

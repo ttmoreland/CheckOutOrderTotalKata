@@ -58,7 +58,34 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var okResult = _controller.Get("Steak").Result as OkObjectResult;
             var item = Assert.IsType<StoreItem>(okResult.Value);
         }
+        #endregion
 
+        #region Add()
+        [Fact]
+        public void StoreController_AddItem_WeightedItemReturnsBadRequest()
+        {
+            var badItem = new StoreItem("", 12.00m);
+            _controller.ModelState.AddModelError("Name", "Required");
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_WeightedItemReturnsResponse()
+        {
+            var item = new StoreItem("Chorizo", 3.99m);
+            var createdResponse = _controller.Post(item);
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_WeightedItemReturnsResponseCreatedItem()
+        {
+            var item = new StoreItem("Ground Beef", 2.99m);
+            var createdResponse = _controller.Post(item) as CreatedAtActionResult;
+            var itemResult = createdResponse.Value as StoreItem;
+            Assert.Equal(item.Name, itemResult.Name);
+        }
         #endregion
     }
 }

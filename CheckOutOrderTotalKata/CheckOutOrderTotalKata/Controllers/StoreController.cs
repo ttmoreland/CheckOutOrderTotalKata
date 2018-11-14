@@ -39,5 +39,17 @@ namespace CheckOutOrderTotalKata.Controllers
 
             return Ok(item);
         }
+
+        [HttpPost]
+        public ActionResult Post([FromBody] StoreItem value)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var item = _store.Add(value);
+            return CreatedAtAction("Get", new { id = item.Name }, item);
+        }
     }
 }
