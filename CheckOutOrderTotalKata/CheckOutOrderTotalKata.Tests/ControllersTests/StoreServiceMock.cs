@@ -18,7 +18,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
                 new StoreItem("Soup", 1.00m),
                 new StoreItem("Steak", 4.75m),
                 new StoreItem("Apple", 3.00m),
-                new StoreItem("Bread", 3.00m)
+                new StoreItem("Bread", 1.59m)
             };
         }
 
@@ -34,7 +34,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         public StoreItem GetItem(string itemName)
         {
-            throw new NotImplementedException();
+            return _store.Where(a => a.Name == itemName).FirstOrDefault();
         }
 
         public void Remove(string itemName)

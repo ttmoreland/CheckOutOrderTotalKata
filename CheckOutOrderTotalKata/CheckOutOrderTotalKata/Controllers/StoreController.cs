@@ -13,18 +13,31 @@ namespace CheckOutOrderTotalKata.Controllers
     [ApiController]
     public class StoreController : ControllerBase
     {
-        private readonly IBaseService<StoreItem> _service;
+        private readonly IBaseService<StoreItem> _store;
 
         public StoreController(IBaseService<StoreItem> service)
         {
-            _service = service;
+            _store = service;
         }
 
         [HttpGet]
         public ActionResult<List<StoreItem>> Get()
         {
-            var items = _service.GetAllItems();
+            var items = _store.GetAllItems();
             return Ok(items);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<CartItem> Get(string itemName)
+        {
+            var item = _store.GetItem(itemName);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item);
         }
     }
 }

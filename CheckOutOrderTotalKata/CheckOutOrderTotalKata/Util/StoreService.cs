@@ -31,7 +31,7 @@ namespace CheckOutOrderTotalKata.Util
 
         public StoreItem GetItem(string itemName)
         {
-            throw new NotImplementedException();
+            return _cart.Where(a => a.Name == itemName).FirstOrDefault();
         }
 
         public void Remove(string itemName)
