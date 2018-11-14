@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Mvc;
+using CheckOutOrderTotalKata.Models;
 
 namespace CheckOutOrderTotalKata.Tests.ControllersTests
 {
@@ -28,6 +29,14 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         {
             var okResult = _controller.Get();
             Assert.IsType<OkObjectResult>(okResult.Result);
+        }
+
+        [Fact]
+        public void CartController_Get_ReturnsCorrectNumberOfItems()
+        {
+            var okResult = _controller.Get().Result as OkObjectResult;
+            var cartItems = Assert.IsType<List<CartItem>>(okResult.Value);
+            Assert.Equal(3, cartItems.Count);
         }
     }
 }

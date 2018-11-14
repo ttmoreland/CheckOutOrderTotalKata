@@ -22,7 +22,7 @@ namespace CheckOutOrderTotalKata.Controllers
 
         // GET: api/Cart
         [HttpGet]
-        public ActionResult<IEnumerable<CartItem>> Get()
+        public ActionResult<List<CartItem>> Get()
         {
             var items = _service.GetAllItems();
             return Ok(items);
