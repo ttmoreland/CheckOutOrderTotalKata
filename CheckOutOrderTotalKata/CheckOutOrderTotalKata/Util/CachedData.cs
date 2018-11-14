@@ -1,14 +1,20 @@
-﻿using CheckOutOrderTotalKata.Models;
-using Microsoft.Extensions.Caching.Memory;
-using System;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CheckOutOrderTotalKata.Util
 {
+    /// <summary>
+    /// Cached Data
+    /// </summary>
     public static class CachedData
     {
+        /// <summary>
+        /// Gets the cached item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cache">The cache.</param>
+        /// <param name="cacheKey">The cache key.</param>
+        /// <returns></returns>
         public static List<T> GetCachedItem<T>(this IMemoryCache cache, string cacheKey)
         {
             List<T> item;
@@ -23,6 +29,13 @@ namespace CheckOutOrderTotalKata.Util
             return item;
         }
 
+        /// <summary>
+        /// Sets the cached item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cache">The cache.</param>
+        /// <param name="cacheKey">The cache key.</param>
+        /// <param name="items">The items.</param>
         public static void SetCachedItem<T>(this IMemoryCache cache, string cacheKey, List<T> items)
         {
             //Set cache value options
