@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Xunit;
-using CheckOutOrderTotalKata;
 using CheckOutOrderTotalKata.Controllers;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Mvc;
 using CheckOutOrderTotalKata.Models;
+using System.Linq;
 
 namespace CheckOutOrderTotalKata.Tests.ControllersTests
 {
@@ -129,7 +124,21 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             Assert.IsType<NotFoundResult>(badResponse);
         }
 
+        [Fact]
+        public void CartController_Delete_ReturnsOkResult()
+        {
+            var item = "Soup";
+            var okResponse = _controller.Remove(item);
+            Assert.IsType<OkResult>(okResponse);
+        }
 
+        [Fact]
+        public void CartController_Delete_ValidateRemovesItem()
+        {
+            var item = "Soup";
+            var okResponse = _controller.Remove(item);
+            Assert.Equal(2, _cart.GetAllItems().Count());
+        }
         #endregion
     }
 }
