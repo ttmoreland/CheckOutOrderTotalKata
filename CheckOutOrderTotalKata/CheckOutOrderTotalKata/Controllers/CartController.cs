@@ -27,5 +27,19 @@ namespace CheckOutOrderTotalKata.Controllers
             var items = _service.GetAllItems();
             return Ok(items);
         }
+
+        // GET api/shoppingcart/5
+        [HttpGet("{id}")]
+        public ActionResult<CartItem> Get(string itemName)
+        {
+            var item = _service.GetItem(itemName);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item);
+        }
     }
 }
