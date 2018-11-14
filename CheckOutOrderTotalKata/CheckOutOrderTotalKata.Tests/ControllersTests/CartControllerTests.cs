@@ -120,6 +120,16 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         #endregion
 
+        #region Remove()
+        [Fact]
+        public void CartController_Delete_ReturnsNotFound()
+        {
+            var fakeitem = "SomeFakeitem";
+            var badResponse = _controller.Remove(fakeitem);
+            Assert.IsType<NotFoundResult>(badResponse);
+        }
 
+
+        #endregion
     }
 }
