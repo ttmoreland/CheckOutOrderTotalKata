@@ -18,7 +18,7 @@ namespace CheckOutOrderTotalKata.Util
         public static List<T> GetCachedItem<T>(this IMemoryCache cache, string cacheKey)
         {
             List<T> item;
-            if (!cache.TryGetValue(CacheKeys.Cart, out item))
+            if (!cache.TryGetValue(cacheKey, out item))
             {
                 //Cache doesn't have value so initialize
                 item = new List<T>();

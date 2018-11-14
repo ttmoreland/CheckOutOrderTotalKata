@@ -10,6 +10,8 @@ namespace CheckOutOrderTotalKata.Models
     {
         [Required]
         public string Name { get; private set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public decimal Price { get; private set; }
 
         public StoreItem (string Name, decimal Price)
