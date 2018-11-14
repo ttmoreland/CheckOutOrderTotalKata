@@ -9,7 +9,7 @@ namespace CheckOutOrderTotalKata.Tests
         [Fact]
         public void GroceryItem_TestEachItemProperties()
         {
-            GroceryItem groceryItem = new GroceryItem("EachItem", 12.00m);
+            StoreItem groceryItem = new StoreItem("EachItem", 12.00m);
             Assert.Equal("EachItem", groceryItem.Name);
             Assert.Equal(12.00m, groceryItem.Price);
         }
@@ -17,7 +17,7 @@ namespace CheckOutOrderTotalKata.Tests
         [Fact]
         public void GroceryItem_TestWeightedItemProperties()
         {
-            GroceryItem groceryItem = new GroceryItem("WeightedItem", 2.99m);
+            StoreItem groceryItem = new StoreItem("WeightedItem", 2.99m);
             Assert.Equal("WeightedItem", groceryItem.Name);
             Assert.Equal(2.99m, groceryItem.Price);
         }

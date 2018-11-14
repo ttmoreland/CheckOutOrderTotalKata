@@ -10,8 +10,8 @@ namespace CheckOutOrderTotalKata.Util
     /// <summary>
     /// Cart Service
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.ICartService" />
-    public class CartService : ICartService
+    /// <seealso cref="CheckOutOrderTotalKata.Util.IBaseService{CheckOutOrderTotalKata.Models.CartItem}" />
+    public class CartService : IBaseService<CartItem>
     {
         /// <summary>
         /// The cart

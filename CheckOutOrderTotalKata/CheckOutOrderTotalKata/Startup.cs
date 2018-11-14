@@ -1,4 +1,5 @@
-﻿using CheckOutOrderTotalKata.Util;
+﻿using CheckOutOrderTotalKata.Models;
+using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ namespace CheckOutOrderTotalKata
             services.AddMemoryCache();
 
             // Registering services
-            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IBaseService<CartItem>, CartService>();
 
             // Register Swagger
             services.AddSwaggerGen(c =>

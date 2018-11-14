@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CheckOutOrderTotalKata.Models
 {
-    public class GroceryItem
+    public class StoreItem
     {
         [Required]
         public string Name { get; private set; }
         public decimal Price { get; private set; }
 
-        public GroceryItem (string Name, decimal Price)
+        public StoreItem (string Name, decimal Price)
         {
             this.Name = Name;
             this.Price = Price;

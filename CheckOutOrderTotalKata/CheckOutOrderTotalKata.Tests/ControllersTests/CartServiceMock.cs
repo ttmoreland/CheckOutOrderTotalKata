@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CheckOutOrderTotalKata.Tests.ControllersTests
 {
-    public class CartServiceMock : ICartService
+    public class CartServiceMock : IBaseService<CartItem>
     {
         private readonly List<CartItem> _cart;
 

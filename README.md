@@ -4,6 +4,8 @@ This is an API for a grocery point-of-sales system. A user is able to add items 
 ## Build Commands
  1. Run "dotnet restore" command in Package Manager Console
  
+## Notes
+* Logs will be generated in ..\logs\logYYYYMMDD.txt
  
 ## Sources
  - Caching - https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory?view=aspnetcore-2.1

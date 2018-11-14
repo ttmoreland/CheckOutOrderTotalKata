@@ -7,29 +7,30 @@ using System.Threading.Tasks;
 namespace CheckOutOrderTotalKata.Util
 {
     /// <summary>
-    /// ICartService Interface
+    /// IBaseService Interface
     /// </summary>
-    public interface ICartService
+    /// <typeparam name="T"></typeparam>
+    public interface IBaseService<T>
     {
         /// <summary>
         /// Gets all items.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<CartItem> GetAllItems();
+        IEnumerable<T> GetAllItems();
 
         /// <summary>
         /// Adds the specified new item.
         /// </summary>
         /// <param name="newItem">The new item.</param>
         /// <returns></returns>
-        CartItem Add(CartItem newItem);
+        T Add(T newItem);
 
         /// <summary>
         /// Gets the item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <returns></returns>
-        CartItem GetItem(string itemName);
+        T GetItem(string itemName);
 
         /// <summary>
         /// Removes the specified item name.
