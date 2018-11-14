@@ -10,6 +10,7 @@ namespace CheckOutOrderTotalKata.Models
     {     
         [Required]
         public string Name { get; private set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public decimal Quantity { get; private set; }
 
         public CartItem(string Name, decimal Quantity)
@@ -17,7 +18,7 @@ namespace CheckOutOrderTotalKata.Models
             this.Name = Name;      
             if (Quantity == 0)
                 //Each
-                this.Quantity = Quantity;
+                this.Quantity = 1;
             else
                 //Weight
                 this.Quantity = Quantity;

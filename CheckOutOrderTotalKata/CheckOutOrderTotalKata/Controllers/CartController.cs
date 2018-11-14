@@ -28,7 +28,7 @@ namespace CheckOutOrderTotalKata.Controllers
             return Ok(items);
         }
 
-        // GET api/shoppingcart/5
+        // GET api/Cart/SomeItem
         [HttpGet("{id}")]
         public ActionResult<CartItem> Get(string itemName)
         {
@@ -55,7 +55,7 @@ namespace CheckOutOrderTotalKata.Controllers
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
-        // DELETE: api/Cart/item
+        // DELETE: api/Cart/SomeItem
         [HttpDelete("{id}")]
         public ActionResult Remove(string itemName)
         {

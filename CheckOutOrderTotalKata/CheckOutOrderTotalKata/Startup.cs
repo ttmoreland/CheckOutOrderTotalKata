@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace CheckOutOrderTotalKata
@@ -45,11 +46,15 @@ namespace CheckOutOrderTotalKata
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
 
+            //Global Exception Handling middleware
+            app.ConfigureExceptionHandler();
+
+            //Swagger setup
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
