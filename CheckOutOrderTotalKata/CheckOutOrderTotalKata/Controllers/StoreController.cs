@@ -9,9 +9,9 @@ namespace CheckOutOrderTotalKata.Controllers
     [ApiController]
     public class StoreController : ControllerBase
     {
-        private readonly IBaseService<StoreItem> _store;
+        private readonly BaseCacheService<StoreItem> _store;
 
-        public StoreController(IBaseService<StoreItem> service)
+        public StoreController(BaseCacheService<StoreItem> service)
         {
             _store = service;
         }
@@ -61,7 +61,7 @@ namespace CheckOutOrderTotalKata.Controllers
                 return NotFound();
             }
 
-            _store.Remove(itemName);
+            _store.Remove(existingItem);
             return Ok();
         }
     }

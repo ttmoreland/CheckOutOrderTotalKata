@@ -5,18 +5,20 @@ using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Mvc;
 using CheckOutOrderTotalKata.Models;
 using System.Linq;
-
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
 {
     public class StoreControllerTests
     {
         StoreController _controller;
-        IBaseService<StoreItem> _store;
+        BaseCacheService<StoreItem> _store;
 
         public StoreControllerTests()
         {
-            _store = new StoreServiceMock();
+            var cache = new MemoryCache(new MemoryCacheOptions());
+
+            _store = new StoreServiceMock(cache);
             _controller = new StoreController(_store);
         }
 

@@ -18,18 +18,18 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <summary>
         /// The cart
         /// </summary>
-        private readonly IBaseService<CartItem> _cart;
+        private readonly BaseCacheService<CartItem> _cart;
 
         /// <summary>
         /// The store
         /// </summary>
-        private readonly IBaseService<StoreItem> _store;
+        private readonly BaseCacheService<StoreItem> _store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public CartController(IBaseService<CartItem> cartService, IBaseService<StoreItem> storeService)
+        public CartController(BaseCacheService<CartItem> cartService, BaseCacheService<StoreItem> storeService)
         {
             _cart = cartService;
             _store = storeService;
@@ -47,6 +47,7 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         [HttpGet]
+        [Route("GetCartTotal")]
         public ActionResult<Cart> GetCartTotal()
         {
             decimal cartTotal = CalculateCartTotal();
@@ -114,7 +115,7 @@ namespace CheckOutOrderTotalKata.Controllers
                 return NotFound();
             }
 
-            _cart.Remove(itemName);
+            _cart.Remove(existingItem);
             return Ok();
         }
 

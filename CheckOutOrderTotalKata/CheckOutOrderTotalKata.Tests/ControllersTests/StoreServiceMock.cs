@@ -1,5 +1,6 @@
 ﻿using CheckOutOrderTotalKata.Models;
 using CheckOutOrderTotalKata.Util;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Text;
 
 namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
 {
-    public class StoreServiceMock : IBaseService<StoreItem>
+    public class StoreServiceMock : BaseCacheService<StoreItem>
     {
         private readonly List<StoreItem> _store;
 
-        public StoreServiceMock()
+        public StoreServiceMock(IMemoryCache cache) : base(cache)
         {
             _store = new List<StoreItem>()
             {
@@ -21,28 +22,15 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
                 new StoreItem("Bread", 1.59m),
                 new StoreItem("Chorizo", 3.99m)
             };
+
+            cache.SetCachedItem(CacheKey, _store);
         }
 
-        public StoreItem Add(StoreItem newItem)
-        {
-            _store.Add(newItem);
-            return newItem;
-        }
+        public override string CacheKey => CacheKeys.Store;
 
-        public IEnumerable<StoreItem> GetAllItems()
-        {
-            return _store;
-        }
-
-        public StoreItem GetItem(string itemName)
+        public override StoreItem GetItem(string itemName)
         {
             return _store.Where(a => a.Name == itemName).FirstOrDefault();
-        }
-
-        public void Remove(string itemName)
-        {
-            var existing = this.GetItem(itemName);
-            _store.Remove(existing);
         }
     }
 }

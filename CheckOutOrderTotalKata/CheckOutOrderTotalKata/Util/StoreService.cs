@@ -7,40 +7,34 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace CheckOutOrderTotalKata.Util
 {
-    public class StoreService : IBaseService<StoreItem>
+    public class StoreService : BaseCacheService<StoreItem>
     {
-        private readonly List<StoreItem> _store;
 
-        private readonly IMemoryCache _cache;
-
-        public StoreService(IMemoryCache cache)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StoreService"/> class.
+        /// </summary>
+        /// <param name="cache">The cache.</param>
+        /// <param name="cacheKey">The cache key.</param>
+        public StoreService(IMemoryCache cache) : base(cache)
         {
-            _store = cache.GetCachedItem<StoreItem>(CacheKeys.Store);
-            _cache = cache;
         }
 
-        public StoreItem Add(StoreItem newItem)
-        {
-            _store.Add(newItem);
-            _cache.SetCachedItem(CacheKeys.Store, _store);
-            return newItem;
-        }
+        /// <summary>
+        /// Gets the temperament.
+        /// </summary>
+        /// <value>
+        /// The temperament.
+        /// </value>
+        public override string CacheKey => CacheKeys.Store;
 
-        public IEnumerable<StoreItem> GetAllItems()
+        /// <summary>
+        /// Gets the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
+        public override StoreItem GetItem(string itemName)
         {
-            return _store;
-        }
-
-        public StoreItem GetItem(string itemName)
-        {
-            return _store.Where(a => a.Name == itemName).FirstOrDefault();
-        }
-
-        public void Remove(string itemName)
-        {
-            var existing = this.GetItem(itemName);
-            _cache.SetCachedItem(CacheKeys.Store, _store);
-            _store.Remove(existing);
+            return GetAllItems().Where(a => a.Name == itemName).FirstOrDefault();
         }
     }
 }

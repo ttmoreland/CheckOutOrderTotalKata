@@ -5,19 +5,22 @@ using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Mvc;
 using CheckOutOrderTotalKata.Models;
 using System.Linq;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
 {
     public class CartControllerTests
     {
         CartController _controller;
-        IBaseService<CartItem> _cart;
-        IBaseService<StoreItem> _store;
+        BaseCacheService<CartItem> _cart;
+        BaseCacheService<StoreItem> _store;
 
         public CartControllerTests()
         {
-            _cart = new CartServiceMock();
-            _store = new StoreServiceMock();
+            var cache = new MemoryCache(new MemoryCacheOptions());
+
+            _cart = new CartServiceMock(cache);
+            _store = new StoreServiceMock(cache);
             _controller = new CartController(_cart, _store);
         }
 
@@ -58,7 +61,7 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
         public void CartController_GetCartTotal_ReturnsBadResponse()
         {
             //clear out cart
-            _cart.GetAllItems().ToList().ForEach(x => _cart.Remove(x.Name));
+            _cart.GetAllItems().ToList().ForEach(x => _cart.Remove(x));
 
             var badResponse = _controller.GetCartTotal();
             Assert.IsType<BadRequestObjectResult>(badResponse.Result);

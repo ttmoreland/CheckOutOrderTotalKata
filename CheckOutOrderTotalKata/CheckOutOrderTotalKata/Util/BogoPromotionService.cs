@@ -1,24 +1,24 @@
-﻿using System;
+﻿using CheckOutOrderTotalKata.Models;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CheckOutOrderTotalKata.Models;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace CheckOutOrderTotalKata.Util
 {
     /// <summary>
-    /// Cart Service
+    /// BOGO Promotion
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.ICartService" />
-    public class CartService : BaseCacheService<CartItem>
+    /// <seealso cref="CheckOutOrderTotalKata.Util.BaseCacheService{CheckOutOrderTotalKata.Models.BogoPromotion}" />
+    public class BogoPromotionService : BaseCacheService<BogoPromotion>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CartService"/> class.
+        /// Initializes a new instance of the <see cref="BogoPromotionService"/> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
         /// <param name="cacheKey">The cache key.</param>
-        public CartService(IMemoryCache cache) : base(cache)
+        public BogoPromotionService(IMemoryCache cache) : base(cache)
         {
         }
 
@@ -28,16 +28,16 @@ namespace CheckOutOrderTotalKata.Util
         /// <value>
         /// The temperament.
         /// </value>
-        public override string CacheKey => CacheKeys.Cart;
+        public override string CacheKey => CacheKeys.BogoPromotion;
 
         /// <summary>
         /// Gets the item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <returns></returns>
-        public override CartItem GetItem(string itemName)
+        public override BogoPromotion GetItem(string itemName)
         {
-            return GetAllItems().Where(a => a.Name == itemName).FirstOrDefault();
+            return GetAllItems().Where(a => a.ItemName == itemName).FirstOrDefault();
         }
     }
 }
