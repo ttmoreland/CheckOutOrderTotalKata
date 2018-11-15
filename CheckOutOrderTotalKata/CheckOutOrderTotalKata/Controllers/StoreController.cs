@@ -39,11 +39,14 @@ namespace CheckOutOrderTotalKata.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] StoreItem value)
         {
+            //Validate item
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
-
+            
+            //Check for duplicate item
+            if (_store.GetItem(value.Name) != null)
+                return BadRequest($"An item already exists with the name {value.Name}.");
+            
             var item = _store.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }

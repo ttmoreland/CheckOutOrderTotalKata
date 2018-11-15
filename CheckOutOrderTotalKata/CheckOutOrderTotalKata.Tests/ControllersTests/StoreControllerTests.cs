@@ -62,7 +62,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         #region Add()
         [Fact]
-        public void StoreController_AddItem_WeightedItemReturnsBadRequest()
+        public void StoreController_AddItem_ItemReturnsBadRequest()
         {
             var badItem = new StoreItem("", 12.00m);
             _controller.ModelState.AddModelError("Name", "Required");
@@ -71,7 +71,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_WeightedItemReturnsResponse()
+        public void StoreController_AddItem_ItemReturnsResponse()
         {
             var item = new StoreItem("Chorizo", 3.99m);
             var createdResponse = _controller.Post(item);
@@ -79,12 +79,20 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_WeightedItemReturnsResponseCreatedItem()
+        public void StoreController_AddItem_ItemReturnsResponseCreatedItem()
         {
             var item = new StoreItem("Ground Beef", 2.99m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as StoreItem;
             Assert.Equal(item.Name, itemResult.Name);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_DuplicateItemReturnsBadRequest()
+        {
+            var dupItem = new StoreItem("Soup", 3.99m);
+            var badResponse = _controller.Post(dupItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
         }
         #endregion
 
