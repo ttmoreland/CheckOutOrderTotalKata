@@ -36,7 +36,7 @@ namespace CheckOutOrderTotalKata.Util
         /// <returns></returns>
         public T Add(T newItem)
         {
-            _items = GetAllItems().ToList();
+            _items = GetAllItems();
             _items.Add(newItem);
             _cache.SetCachedItem(CacheKey, _items);
             return newItem;
@@ -46,7 +46,7 @@ namespace CheckOutOrderTotalKata.Util
         /// Gets all items.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<T> GetAllItems()
+        public List<T> GetAllItems()
         {
             return _cache.GetCachedItem<T>(CacheKey);
         }
@@ -57,7 +57,7 @@ namespace CheckOutOrderTotalKata.Util
         /// <param name="item">The item.</param>
         public void Remove(T item)
         {
-            _items = GetAllItems().ToList();
+            _items = GetAllItems();
             _items.Remove(item);
             _cache.SetCachedItem(CacheKey, _items);
         }

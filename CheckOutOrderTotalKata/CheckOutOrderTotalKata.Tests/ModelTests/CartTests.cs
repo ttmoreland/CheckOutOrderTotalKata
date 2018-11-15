@@ -22,7 +22,7 @@ namespace CheckOutOrderTotalKata.ModelTests
             _store = new StoreServiceMock(cache);
 
             Cart cart = new Cart();
-            cart.AddPricedItems(_cart.GetAllItems().ToList(), _store.GetAllItems().ToList());
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
 
             Assert.Equal(32.5625m, cart.Total);
         }

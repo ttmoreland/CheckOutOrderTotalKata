@@ -62,7 +62,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         public void CartController_GetCartTotal_ReturnsBadResponse()
         {
             //clear out cart
-            _cart.GetAllItems().ToList().ForEach(x => _cart.Remove(x));
+            _cart.GetAllItems().ForEach(x => _cart.Remove(x));
 
             var badResponse = _controller.GetCartTotal();
             Assert.IsType<BadRequestObjectResult>(badResponse.Result);

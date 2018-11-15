@@ -51,7 +51,7 @@ namespace CheckOutOrderTotalKata.Controllers
         public ActionResult<Cart> GetCartTotal()
         {
             Cart cart = new Cart();
-            cart.AddPricedItems(_cart.GetAllItems().ToList(), _store.GetAllItems().ToList());
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
 
             //if cart is empty bad request
             if (cart.Total == 0 || _cart.GetAllItems().Count() == 0)

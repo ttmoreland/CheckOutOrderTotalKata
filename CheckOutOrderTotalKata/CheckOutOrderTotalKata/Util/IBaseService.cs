@@ -17,7 +17,7 @@ namespace CheckOutOrderTotalKata.Util
         /// Gets all items.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T> GetAllItems();
+        List<T> GetAllItems();
 
         /// <summary>
         /// Adds the specified new item.
