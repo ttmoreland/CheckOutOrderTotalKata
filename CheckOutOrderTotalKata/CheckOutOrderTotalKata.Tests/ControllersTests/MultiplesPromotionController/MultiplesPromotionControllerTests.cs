@@ -41,5 +41,29 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             Assert.Equal(2, items.Count);
         }
         #endregion
+
+        #region GetItem()
+        [Fact]
+        public void MultiplesPromotionController_GetItem_ReturnNotFound()
+        {
+            var notFoundResult = _controller.Get("SomeItemThatDoesntExist");
+            Assert.IsType<NotFoundResult>(notFoundResult.Result);
+        }
+
+        [Fact]
+        public void MultiplesPromotionController_GetItem_ReturnsOkResult()
+        {
+            var okResult = _controller.Get("Apple");
+            Assert.IsType<OkObjectResult>(okResult.Result);
+        }
+
+        [Fact]
+        public void MultiplesPromotionController_GetItem_ReturnsExpectedItem()
+        {
+            var okResult = _controller.Get("Apple").Result as OkObjectResult;
+            var item = Assert.IsType<MultiplesPromotion>(okResult.Value);
+        }
+        #endregion
+
     }
 }

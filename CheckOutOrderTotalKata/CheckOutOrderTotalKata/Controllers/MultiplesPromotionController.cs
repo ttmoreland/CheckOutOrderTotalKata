@@ -20,10 +20,23 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<StoreItem>> Get()
+        public ActionResult<List<MultiplesPromotion>> Get()
         {
             var items = _multiples.GetAllItems();
             return Ok(items);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<MultiplesPromotion> Get(string itemName)
+        {
+            var item = _multiples.GetItem(itemName);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item);
         }
     }
 }
