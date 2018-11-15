@@ -76,7 +76,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_ItemReturnsResponse()
+        public void BogoPromotionController_AddItem_ItemReturnsResponse()
         {
             var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
             var createdResponse = _controller.Post(item);
@@ -84,7 +84,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_ItemReturnsResponseCreatedItem()
+        public void BogoPromotionController_AddItem_ItemReturnsResponseCreatedItem()
         {
             var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
@@ -93,7 +93,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_DuplicateItemReturnsBadRequest()
+        public void BogoPromotionController_AddItem_DuplicateItemReturnsBadRequest()
         {
             var dupItem = new BogoPromotion("Steak", 2, 1, 50, 3);
             var badResponse = _controller.Post(dupItem);
@@ -101,7 +101,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_ValidateAddsItem()
+        public void BogoPromotionController_AddItem_ValidateAddsItem()
         {
             var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
             var okResponse = _controller.Post(item);

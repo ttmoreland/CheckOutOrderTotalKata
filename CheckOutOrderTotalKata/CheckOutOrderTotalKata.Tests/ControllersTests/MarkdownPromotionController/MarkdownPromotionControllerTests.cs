@@ -67,7 +67,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
 
         #region Add()
         [Fact]
-        public void StoreController_AddItem_ItemReturnsBadRequest()
+        public void MarkdownPromotionController_AddItem_ItemReturnsBadRequest()
         {
             var badItem = new MarkdownPromotion("", 12.00m);
             _controller.ModelState.AddModelError("Name", "Required");
@@ -76,7 +76,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_ItemReturnsResponse()
+        public void MarkdownPromotionController_AddItem_ItemReturnsResponse()
         {
             var item = new MarkdownPromotion("Steak", -.50m);
             var createdResponse = _controller.Post(item);
@@ -84,7 +84,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_ItemReturnsResponseCreatedItem()
+        public void MarkdownPromotionController_AddItem_ItemReturnsResponseCreatedItem()
         {
             var item = new MarkdownPromotion("Steak", -.50m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
@@ -93,7 +93,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_DuplicateItemReturnsBadRequest()
+        public void MarkdownPromotionController_AddItem_DuplicateItemReturnsBadRequest()
         {
             var dupItem = new MarkdownPromotion("Soup", -.40m);
             var badResponse = _controller.Post(dupItem);
@@ -101,7 +101,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void StoreController_AddItem_ValidateAddsItem()
+        public void MarkdownPromotionController_AddItem_ValidateAddsItem()
         {
             var item = new MarkdownPromotion("Steak", -.50m);
             var okResponse = _controller.Post(item);

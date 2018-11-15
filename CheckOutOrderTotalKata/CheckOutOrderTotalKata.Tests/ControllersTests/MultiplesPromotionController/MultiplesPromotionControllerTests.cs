@@ -6,7 +6,7 @@ using CheckOutOrderTotalKata.ModelTests.ControllersTests;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace CheckOutOrderTotalKata.ControllersTests
 {
@@ -65,5 +65,48 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
         #endregion
 
+        #region Add()
+        [Fact]
+        public void MultiplesPromotionController_AddItem_ItemReturnsBadRequest()
+        {
+            var badItem = new MultiplesPromotion("", 3, 7.50m);
+            _controller.ModelState.AddModelError("Name", "Required");
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void MultiplesPromotionController_AddItem_ItemReturnsResponse()
+        {
+            var item = new MultiplesPromotion("Bread", 2, 3.00m);
+            var createdResponse = _controller.Post(item);
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
+
+        [Fact]
+        public void MultiplesPromotionController_AddItem_ItemReturnsResponseCreatedItem()
+        {
+            var item = new MultiplesPromotion("Bread", 2, 3.00m);
+            var createdResponse = _controller.Post(item) as CreatedAtActionResult;
+            var itemResult = createdResponse.Value as MultiplesPromotion;
+            Assert.Equal(item.ItemName, itemResult.ItemName);
+        }
+
+        [Fact]
+        public void MultiplesPromotionController_AddItem_DuplicateItemReturnsBadRequest()
+        {
+            var dupItem = new MultiplesPromotion("Apple", 2, 3.00m);
+            var badResponse = _controller.Post(dupItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void MultiplesPromotionController_AddItem_ValidateAddsItem()
+        {
+            var item = new MultiplesPromotion("Bread", 2, 3.00m);
+            var okResponse = _controller.Post(item);
+            Assert.Equal(3, _multiples.GetAllItems().Count());
+        }
+        #endregion
     }
 }
