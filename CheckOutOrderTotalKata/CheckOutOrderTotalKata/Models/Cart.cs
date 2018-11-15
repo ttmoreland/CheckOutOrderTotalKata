@@ -1,4 +1,6 @@
-﻿namespace CheckOutOrderTotalKata.Models
+﻿using System.Collections.Generic;
+
+namespace CheckOutOrderTotalKata.Models
 {
     /// <summary>
     /// Cart 
@@ -12,6 +14,8 @@
         /// The total.
         /// </value>
         public decimal Total { get; private set; }
+
+        public List<PricedCartItem> PricedItems { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cart"/> class.
