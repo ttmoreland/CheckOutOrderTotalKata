@@ -18,5 +18,12 @@ namespace CheckOutOrderTotalKata.Controllers
             _bogos = bogoService;
             _store = storeService;
         }
+
+        [HttpGet]
+        public ActionResult<List<StoreItem>> Get()
+        {
+            var items = _bogos.GetAllItems();
+            return Ok(items);
+        }
     }
 }

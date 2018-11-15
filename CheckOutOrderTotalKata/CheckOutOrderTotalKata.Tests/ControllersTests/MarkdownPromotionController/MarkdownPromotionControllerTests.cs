@@ -26,19 +26,21 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
 
         #region GET()
         [Fact]
-        public void StoreController_Get_ReturnOkResponse()
+        public void MarkdownPromotionController_Get_ReturnOkResponse()
         {
             var okResult = _controller.Get();
             Assert.IsType<OkObjectResult>(okResult.Result);
         }
 
         [Fact]
-        public void StoreController_Get_ReturnsCorrectNumberOfItems()
+        public void MarkdownPromotionController_Get_ReturnsCorrectNumberOfItems()
         {
             var okResult = _controller.Get().Result as OkObjectResult;
             var items = Assert.IsType<List<MarkdownPromotion>>(okResult.Value);
             Assert.Single(items);
         }
         #endregion
+
+
     }
 }
