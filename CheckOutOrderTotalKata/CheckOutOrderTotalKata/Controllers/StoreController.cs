@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CheckOutOrderTotalKata.Controllers
 {
+    /// <summary>
+    /// Store Controller
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class StoreController : ControllerBase
@@ -16,6 +20,10 @@ namespace CheckOutOrderTotalKata.Controllers
             _store = service;
         }
 
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<List<StoreItem>> Get()
         {
@@ -23,6 +31,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return Ok(items);
         }
 
+        /// <summary>
+        /// Gets the specified item name.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult<CartItem> Get(string itemName)
         {
@@ -36,6 +49,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return Ok(item);
         }
 
+        /// <summary>
+        /// Posts the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Post([FromBody] StoreItem value)
         {
@@ -51,6 +69,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
+        /// <summary>
+        /// Removes the specified item name.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public ActionResult Remove(string itemName)
         {
