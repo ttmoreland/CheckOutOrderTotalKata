@@ -117,5 +117,30 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
         #endregion
 
+        #region Remove()
+        [Fact]
+        public void BogoPromotionController_Delete_ReturnsNotFound()
+        {
+            var fakeitem = "SomeFakeitem";
+            var badResponse = _controller.Remove(fakeitem);
+            Assert.IsType<NotFoundResult>(badResponse);
+        }
+
+        [Fact]
+        public void BogoPromotionController_Delete_ReturnsOkResult()
+        {
+            var item = "Steak";
+            var okResponse = _controller.Remove(item);
+            Assert.IsType<OkResult>(okResponse);
+        }
+
+        [Fact]
+        public void BogoPromotionController_Delete_ValidateRemovesItem()
+        {
+            var item = "Steak";
+            var okResponse = _controller.Remove(item);
+            Assert.Empty(_bogos.GetAllItems());
+        }
+        #endregion
     }
 }
