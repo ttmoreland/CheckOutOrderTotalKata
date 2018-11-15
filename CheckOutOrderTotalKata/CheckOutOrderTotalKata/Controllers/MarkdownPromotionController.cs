@@ -38,5 +38,21 @@ namespace CheckOutOrderTotalKata.Controllers
 
             return Ok(item);
         }
+
+        [HttpPost]
+        public ActionResult Post([FromBody] MarkdownPromotion value)
+        {
+            //Validate item
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            //Check for duplicate item
+            if (_markdowns.GetItem(value.ItemName) != null)
+                return BadRequest($"An item already exists with the name {value.ItemName}.");
+
+            var item = _markdowns.Add(value);
+            return CreatedAtAction("Get", new { id = item.ItemName }, item);
+        }
+
     }
 }

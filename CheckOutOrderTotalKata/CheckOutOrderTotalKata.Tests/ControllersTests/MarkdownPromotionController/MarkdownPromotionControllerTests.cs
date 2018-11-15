@@ -6,6 +6,7 @@ using CheckOutOrderTotalKata.ModelTests.ControllersTests;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CheckOutOrderTotalKata.ControllersTests
 {
@@ -64,5 +65,48 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
         #endregion
 
+        #region Add()
+        [Fact]
+        public void StoreController_AddItem_ItemReturnsBadRequest()
+        {
+            var badItem = new MarkdownPromotion("", 12.00m);
+            _controller.ModelState.AddModelError("Name", "Required");
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ItemReturnsResponse()
+        {
+            var item = new MarkdownPromotion("Steak", -.50m);
+            var createdResponse = _controller.Post(item);
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ItemReturnsResponseCreatedItem()
+        {
+            var item = new MarkdownPromotion("Steak", -.50m);
+            var createdResponse = _controller.Post(item) as CreatedAtActionResult;
+            var itemResult = createdResponse.Value as MarkdownPromotion;
+            Assert.Equal(item.ItemName, itemResult.ItemName);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_DuplicateItemReturnsBadRequest()
+        {
+            var dupItem = new MarkdownPromotion("Soup", -.40m);
+            var badResponse = _controller.Post(dupItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ValidateAddsItem()
+        {
+            var item = new MarkdownPromotion("Steak", -.50m);
+            var okResponse = _controller.Post(item);
+            Assert.Equal(2, _markdowns.GetAllItems().Count());
+        }
+        #endregion
     }
 }
