@@ -6,6 +6,7 @@ using CheckOutOrderTotalKata.ModelTests.ControllersTests;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CheckOutOrderTotalKata.ControllersTests
 {
@@ -64,6 +65,49 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
         #endregion
 
+        #region Add()
+        [Fact]
+        public void BogoPromotionController_AddItem_ItemReturnsBadRequest()
+        {
+            var badItem = new BogoPromotion("", 1, 1, 100, 1);
+            _controller.ModelState.AddModelError("Name", "Required");
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ItemReturnsResponse()
+        {
+            var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
+            var createdResponse = _controller.Post(item);
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ItemReturnsResponseCreatedItem()
+        {
+            var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
+            var createdResponse = _controller.Post(item) as CreatedAtActionResult;
+            var itemResult = createdResponse.Value as BogoPromotion;
+            Assert.Equal(item.ItemName, itemResult.ItemName);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_DuplicateItemReturnsBadRequest()
+        {
+            var dupItem = new BogoPromotion("Steak", 2, 1, 50, 3);
+            var badResponse = _controller.Post(dupItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ValidateAddsItem()
+        {
+            var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
+            var okResponse = _controller.Post(item);
+            Assert.Equal(2, _bogos.GetAllItems().Count());
+        }
+        #endregion
 
     }
 }
