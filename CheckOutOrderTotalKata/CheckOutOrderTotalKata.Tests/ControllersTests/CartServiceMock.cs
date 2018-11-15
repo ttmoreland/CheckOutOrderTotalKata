@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CheckOutOrderTotalKata.Tests.ControllersTests
+namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
 {
     public class CartServiceMock : IBaseService<CartItem>
     {

@@ -7,7 +7,7 @@ using CheckOutOrderTotalKata.Models;
 using System.Linq;
 
 
-namespace CheckOutOrderTotalKata.Tests.ControllersTests
+namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
 {
     public class StoreControllerTests
     {

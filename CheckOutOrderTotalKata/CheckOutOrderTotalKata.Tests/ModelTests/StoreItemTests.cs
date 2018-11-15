@@ -2,7 +2,7 @@
 using Xunit;
 using CheckOutOrderTotalKata.Models;
 
-namespace CheckOutOrderTotalKata.Tests
+namespace CheckOutOrderTotalKata.ModelTests
 {
     public class StoreItemTests
     {
