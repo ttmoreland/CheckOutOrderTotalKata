@@ -11,7 +11,7 @@ namespace CheckOutOrderTotalKata.Models
         [Required]
         public string Name { get; private set; }
 
-        [Range(-.01, int.MinValue, ErrorMessage = "Please enter a negative discount.")]
+        [Range(int.MinValue, -.01, ErrorMessage = "Please enter a negative discount.")]
         public decimal Discount { get; private set; }
 
         public MarkdownPromotion(string Name, decimal Discount)

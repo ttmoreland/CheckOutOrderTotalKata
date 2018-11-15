@@ -25,7 +25,7 @@ namespace CheckOutOrderTotalKata.Services
         /// <value>
         /// The temperament.
         /// </value>
-        public override string CacheKey => CacheKeys.MarkdownPromotion;
+        public override string CacheKey => CacheKeys.MultiplesPromotion;
 
         /// <summary>
         /// Gets the item.
