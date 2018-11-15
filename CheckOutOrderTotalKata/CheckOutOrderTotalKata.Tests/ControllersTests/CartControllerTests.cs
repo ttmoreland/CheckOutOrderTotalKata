@@ -12,11 +12,13 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
     {
         CartController _controller;
         ICartService _cart;
+        IBaseService<StoreItem> _store;
 
         public CartControllerTests()
         {
             _cart = new CartServiceMock();
-            _controller = new CartController(_cart);
+            _store = new StoreServiceMock();
+            _controller = new CartController(_cart, _store);
         }
 
         #region Get()
@@ -110,6 +112,14 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as CartItem;
             Assert.Equal(item.Name, itemResult.Name);
+        }
+
+        [Fact]
+        public void CartController_AddItem_ItemDoesntExistInStore()
+        {
+            var badItem = new CartItem("SomeItemThatDoesntExistInStore", 0);
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
         }
 
 

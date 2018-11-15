@@ -14,17 +14,23 @@ namespace CheckOutOrderTotalKata.Controllers
     public class CartController : ControllerBase
     {
         /// <summary>
-        /// The service
+        /// The cart
         /// </summary>
         private readonly ICartService _cart;
+
+        /// <summary>
+        /// The store
+        /// </summary>
+        private readonly IBaseService<StoreItem> _store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public CartController(ICartService service)
+        public CartController(ICartService service, IBaseService<StoreItem> storeService)
         {
             _cart = service;
+            _store = storeService;
         }
 
         /// <summary>
@@ -64,10 +70,12 @@ namespace CheckOutOrderTotalKata.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] CartItem value)
         {
+            //validate item
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            if (_store.GetItem(value.Name) == null)
+                return BadRequest($"The item ({value.Name}) has not been set up.");
 
             var item = _cart.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
