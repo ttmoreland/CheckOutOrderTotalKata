@@ -43,7 +43,7 @@ namespace CheckOutOrderTotalKata
             services.AddMemoryCache();
 
             // Registering services
-            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IBaseService<CartItem>, CartService>();
             services.AddScoped<IBaseService<StoreItem>, StoreService>();
 
             // Register Swagger

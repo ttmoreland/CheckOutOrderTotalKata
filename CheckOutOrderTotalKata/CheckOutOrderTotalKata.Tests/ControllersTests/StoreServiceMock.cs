@@ -18,7 +18,8 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
                 new StoreItem("Soup", 1.00m),
                 new StoreItem("Steak", 4.75m),
                 new StoreItem("Apple", 3.00m),
-                new StoreItem("Bread", 1.59m)
+                new StoreItem("Bread", 1.59m),
+                new StoreItem("Chorizo", 3.99m)
             };
         }
 

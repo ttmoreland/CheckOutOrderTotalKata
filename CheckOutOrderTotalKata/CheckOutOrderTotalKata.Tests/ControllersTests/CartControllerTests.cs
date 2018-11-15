@@ -11,7 +11,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
     public class CartControllerTests
     {
         CartController _controller;
-        ICartService _cart;
+        IBaseService<CartItem> _cart;
         IBaseService<StoreItem> _store;
 
         public CartControllerTests()
@@ -91,7 +91,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_EachItemReturnsResponse()
         {
-            var item = new CartItem("Beer 12 Pack", 0m);
+            var item = new CartItem("Apple", 0m);
             var createdResponse = _controller.Post(item);
             Assert.IsType<CreatedAtActionResult>(createdResponse);
         }
@@ -108,7 +108,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void CartController_AddItem_EachItemReturnsResponseCreatedItem()
         {
-            var item = new CartItem("Beer 12 Pack", 0m);
+            var item = new CartItem("Apple", 0m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as CartItem;
             Assert.Equal(item.Name, itemResult.Name);

@@ -16,7 +16,7 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <summary>
         /// The cart
         /// </summary>
-        private readonly ICartService _cart;
+        private readonly IBaseService<CartItem> _cart;
 
         /// <summary>
         /// The store
@@ -27,9 +27,9 @@ namespace CheckOutOrderTotalKata.Controllers
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public CartController(ICartService service, IBaseService<StoreItem> storeService)
+        public CartController(IBaseService<CartItem> cartService, IBaseService<StoreItem> storeService)
         {
-            _cart = service;
+            _cart = cartService;
             _store = storeService;
         }
 
@@ -74,6 +74,7 @@ namespace CheckOutOrderTotalKata.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            //item needs set up in store to be valid
             if (_store.GetItem(value.Name) == null)
                 return BadRequest($"The item ({value.Name}) has not been set up.");
 

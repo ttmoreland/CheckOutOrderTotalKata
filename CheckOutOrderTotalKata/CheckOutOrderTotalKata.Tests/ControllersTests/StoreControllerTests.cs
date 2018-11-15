@@ -33,7 +33,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         {
             var okResult = _controller.Get().Result as OkObjectResult;
             var cartItems = Assert.IsType<List<StoreItem>>(okResult.Value);
-            Assert.Equal(4, cartItems.Count);
+            Assert.Equal(5, cartItems.Count);
         }
         #endregion
 
@@ -73,7 +73,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         [Fact]
         public void StoreController_AddItem_ItemReturnsResponse()
         {
-            var item = new StoreItem("Chorizo", 3.99m);
+            var item = new StoreItem("Ground Beef", 3.99m);
             var createdResponse = _controller.Post(item);
             Assert.IsType<CreatedAtActionResult>(createdResponse);
         }
@@ -93,6 +93,14 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
             var dupItem = new StoreItem("Soup", 3.99m);
             var badResponse = _controller.Post(dupItem);
             Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void StoreController_AddItem_ValidateAddsItem()
+        {
+            var item = new StoreItem("Tomato Sauce", .89m);
+            var okResponse = _controller.Post (item);
+            Assert.Equal(6, _store.GetAllItems().Count());
         }
         #endregion
 
@@ -118,7 +126,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         {
             var item = "Soup";
             var okResponse = _controller.Remove(item);
-            Assert.Equal(3, _store.GetAllItems().Count());
+            Assert.Equal(4, _store.GetAllItems().Count());
         }
         #endregion
     }
