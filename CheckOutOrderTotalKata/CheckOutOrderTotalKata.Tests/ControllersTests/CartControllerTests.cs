@@ -43,7 +43,7 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         public void CartController_GetCartTotal_ReturnsCorrectType()
         {
             var createdResponse = _controller.GetCartTotal();
-            Assert.IsType<ActionResult<object>>(createdResponse);
+            Assert.IsType<OkObjectResult>(createdResponse.Result);
         }
 
         [Fact]

@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CheckOutOrderTotalKata.Models
+﻿namespace CheckOutOrderTotalKata.Models
 {
+    /// <summary>
+    /// Cart 
+    /// </summary>
     public class Cart
     {
+        /// <summary>
+        /// Gets the total.
+        /// </summary>
+        /// <value>
+        /// The total.
+        /// </value>
         public decimal Total { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Cart"/> class.
+        /// </summary>
+        /// <param name="Total">The total.</param>
         public Cart(decimal Total)
         {
             this.Total = Total;
