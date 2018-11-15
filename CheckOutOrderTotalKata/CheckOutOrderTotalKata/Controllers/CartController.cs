@@ -29,7 +29,8 @@ namespace CheckOutOrderTotalKata.Controllers
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public CartController(BaseCacheService<CartItem> cartService, BaseCacheService<StoreItem> storeService)
+        public CartController(BaseCacheService<CartItem> cartService, 
+                              BaseCacheService<StoreItem> storeService)
         {
             _cart = cartService;
             _store = storeService;

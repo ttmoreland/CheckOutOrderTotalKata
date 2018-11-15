@@ -76,15 +76,15 @@ namespace CheckOutOrderTotalKata.Controllers
                 return BadRequest(ModelState);
 
             //Check for duplicate item
-            if (_bogos.GetItem(value.ItemName) != null)
-                return BadRequest($"An item already exists with the name {value.ItemName}.");
+            if (_bogos.GetItem(value.Name) != null)
+                return BadRequest($"An item already exists with the name {value.Name}.");
 
             //item needs set up in store to be valid
-            if (_store.GetItem(value.ItemName) == null)
-                return BadRequest($"The item ({value.ItemName}) has not been set up.");
+            if (_store.GetItem(value.Name) == null)
+                return BadRequest($"The item ({value.Name}) has not been set up.");
 
             var item = _bogos.Add(value);
-            return CreatedAtAction("Get", new { id = item.ItemName }, item);
+            return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
         /// <summary>

@@ -9,14 +9,14 @@ namespace CheckOutOrderTotalKata.Models
     public class MarkdownPromotion
     {
         [Required]
-        public string ItemName { get; private set; }
+        public string Name { get; private set; }
 
         [Range(-.01, int.MinValue, ErrorMessage = "Please enter a negative discount.")]
         public decimal Discount { get; private set; }
 
-        public MarkdownPromotion(string ItemName, decimal Discount)
+        public MarkdownPromotion(string Name, decimal Discount)
         {
-            this.ItemName = ItemName;
+            this.Name = Name;
             this.Discount = Discount;
         }
     }

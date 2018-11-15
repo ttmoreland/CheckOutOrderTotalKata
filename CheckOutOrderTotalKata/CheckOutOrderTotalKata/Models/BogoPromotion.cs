@@ -9,7 +9,7 @@ namespace CheckOutOrderTotalKata.Models
     public class BogoPromotion
     {
         [Required]
-        public string ItemName { get; private set; }
+        public string Name { get; private set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public int QuantityThreshold { get; private set; }
@@ -23,9 +23,9 @@ namespace CheckOutOrderTotalKata.Models
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public int QuantityLimit { get; private set; }
 
-        public BogoPromotion(string ItemName, int QuantityThreshold, int QuantityImpacted, int PercentOff, int QuantityLimit)
+        public BogoPromotion(string Name, int QuantityThreshold, int QuantityImpacted, int PercentOff, int QuantityLimit)
         {
-            this.ItemName = ItemName;
+            this.Name = Name;
             this.QuantityThreshold = QuantityThreshold;
             this.QuantityImpacted = QuantityImpacted;
             this.PercentOff = PercentOff;

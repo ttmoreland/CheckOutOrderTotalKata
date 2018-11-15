@@ -9,7 +9,7 @@ namespace CheckOutOrderTotalKata.Models
     public class MultiplesPromotion
     {
         [Required]
-        public string ItemName { get; private set; }
+        public string Name { get; private set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public int Quantity { get; private set; }
@@ -17,9 +17,9 @@ namespace CheckOutOrderTotalKata.Models
         [Range(.01, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public decimal Price { get; private set; }
 
-        public MultiplesPromotion(string ItemName, int Quantity, decimal Price)
+        public MultiplesPromotion(string Name, int Quantity, decimal Price)
         {
-            this.ItemName = ItemName;
+            this.Name = Name;
             this.Price = Price;
             this.Quantity = Quantity;
         }

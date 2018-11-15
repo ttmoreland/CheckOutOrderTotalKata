@@ -10,7 +10,7 @@ namespace CheckOutOrderTotalKata.ModelTests
         public void MarkdownPromotionTests_TestProperties()
         {
             MarkdownPromotion promotion = new MarkdownPromotion("Soup", -.20m);
-            Assert.Equal("Soup", promotion.ItemName);
+            Assert.Equal("Soup", promotion.Name);
             Assert.Equal(-.20m, promotion.Discount);
         }
     }

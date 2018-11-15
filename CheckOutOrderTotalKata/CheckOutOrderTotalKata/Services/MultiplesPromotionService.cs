@@ -32,9 +32,9 @@ namespace CheckOutOrderTotalKata.Services
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <returns></returns>
-        public override MultiplesPromotion GetItem(string itemName)
+        public override MultiplesPromotion GetItem(string Name)
         {
-            return GetAllItems().Where(a => a.ItemName == itemName).FirstOrDefault();
+            return GetAllItems().Where(a => a.Name == Name).FirstOrDefault();
         }
     }
 }

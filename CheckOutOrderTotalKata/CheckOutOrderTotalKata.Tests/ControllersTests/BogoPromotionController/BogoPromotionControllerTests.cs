@@ -89,7 +89,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
             var item = new BogoPromotion("Chorizo", 2, 1, 50, 3);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as BogoPromotion;
-            Assert.Equal(item.ItemName, itemResult.ItemName);
+            Assert.Equal(item.Name, itemResult.Name);
         }
 
         [Fact]

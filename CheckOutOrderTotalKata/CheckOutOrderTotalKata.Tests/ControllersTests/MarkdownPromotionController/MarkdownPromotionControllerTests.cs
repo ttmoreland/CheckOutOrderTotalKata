@@ -89,7 +89,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
             var item = new MarkdownPromotion("Steak", -.50m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as MarkdownPromotion;
-            Assert.Equal(item.ItemName, itemResult.ItemName);
+            Assert.Equal(item.Name, itemResult.Name);
         }
 
         [Fact]

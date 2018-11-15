@@ -89,7 +89,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
             var item = new MultiplesPromotion("Bread", 2, 3.00m);
             var createdResponse = _controller.Post(item) as CreatedAtActionResult;
             var itemResult = createdResponse.Value as MultiplesPromotion;
-            Assert.Equal(item.ItemName, itemResult.ItemName);
+            Assert.Equal(item.Name, itemResult.Name);
         }
 
         [Fact]
