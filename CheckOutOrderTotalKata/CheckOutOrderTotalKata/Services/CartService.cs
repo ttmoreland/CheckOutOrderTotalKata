@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using CheckOutOrderTotalKata.Models;
+using CheckOutOrderTotalKata.Util;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace CheckOutOrderTotalKata.Util
+namespace CheckOutOrderTotalKata.Services
 {
     /// <summary>
     /// Cart Service

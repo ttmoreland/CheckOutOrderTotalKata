@@ -1,24 +1,22 @@
 ﻿using CheckOutOrderTotalKata.Models;
+using CheckOutOrderTotalKata.Util;
 using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace CheckOutOrderTotalKata.Util
+namespace CheckOutOrderTotalKata.Services
 {
     /// <summary>
-    /// BOGO Promotion
+    /// Markdown Promotion Service
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.BaseCacheService{CheckOutOrderTotalKata.Models.BogoPromotion}" />
-    public class BogoPromotionService : BaseCacheService<BogoPromotion>
+    /// <seealso cref="CheckOutOrderTotalKata.Util.BaseCacheService{CheckOutOrderTotalKata.Models.MarkdownPromotion}" />
+    public class MarkdownPromotionService : BaseCacheService<MarkdownPromotion>
     {
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="BogoPromotionService"/> class.
+        /// Initializes a new instance of the <see cref="MarkdownPromotionService"/> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
-        /// <param name="cacheKey">The cache key.</param>
-        public BogoPromotionService(IMemoryCache cache) : base(cache)
+        public MarkdownPromotionService(IMemoryCache cache) : base(cache)
         {
         }
 
@@ -28,14 +26,14 @@ namespace CheckOutOrderTotalKata.Util
         /// <value>
         /// The temperament.
         /// </value>
-        public override string CacheKey => CacheKeys.BogoPromotion;
+        public override string CacheKey => CacheKeys.MarkdownPromotion;
 
         /// <summary>
         /// Gets the item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <returns></returns>
-        public override BogoPromotion GetItem(string itemName)
+        public override MarkdownPromotion GetItem(string itemName)
         {
             return GetAllItems().Where(a => a.ItemName == itemName).FirstOrDefault();
         }

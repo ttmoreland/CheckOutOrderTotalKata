@@ -1,4 +1,5 @@
 ﻿using CheckOutOrderTotalKata.Models;
+using CheckOutOrderTotalKata.Services;
 using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,9 @@ namespace CheckOutOrderTotalKata
             // Registering services
             services.AddSingleton<BaseCacheService<CartItem>, CartService>();
             services.AddSingleton<BaseCacheService<StoreItem>, StoreService>();
+            services.AddSingleton<BaseCacheService<MultiplesPromotion>, MultiplesPromotionService>();
+            services.AddSingleton<BaseCacheService<MarkdownPromotion>, MarkdownPromotionService>();
+            services.AddSingleton<BaseCacheService<BogoPromotion>, BogoPromotionService>();
 
             // Register Swagger
             services.AddSwaggerGen(c =>
