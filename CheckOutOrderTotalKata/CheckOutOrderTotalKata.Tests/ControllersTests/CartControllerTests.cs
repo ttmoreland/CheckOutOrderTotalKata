@@ -38,6 +38,33 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         }
         #endregion
 
+        #region GetcartTotal
+        [Fact]
+        public void CartController_GetCartTotal_ReturnsCorrectType()
+        {
+            var createdResponse = _controller.GetCartTotal();
+            Assert.IsType<ActionResult<object>>(createdResponse);
+        }
+
+        [Fact]
+        public void CartController_GetCartTotal_ReturnsCorrectTotal()
+        {
+            var response = _controller.GetCartTotal().Result as OkObjectResult;
+            var cartResult = response.Value as Cart;
+            Assert.Equal(32.5625m, cartResult.Total);
+        }
+
+        [Fact]
+        public void CartController_GetCartTotal_ReturnsBadResponse()
+        {
+            //clear out cart
+            _cart.GetAllItems().ToList().ForEach(x => _cart.Remove(x.Name));
+
+            var badResponse = _controller.GetCartTotal();
+            Assert.IsType<BadRequestObjectResult>(badResponse.Result);
+        }
+        #endregion
+
         #region Getitem()
         [Fact]
         public void CartController_GetItem_ReturnNotFound()

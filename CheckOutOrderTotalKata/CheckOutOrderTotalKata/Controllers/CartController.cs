@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CheckOutOrderTotalKata.Models;
 using CheckOutOrderTotalKata.Util;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace CheckOutOrderTotalKata.Controllers
 {
@@ -42,6 +44,21 @@ namespace CheckOutOrderTotalKata.Controllers
         {
             var items = _cart.GetAllItems();
             return Ok(items);
+        }
+
+        [HttpGet]
+        public ActionResult<Cart> GetCartTotal()
+        {
+            decimal cartTotal = CalculateCartTotal();
+
+            //if cart is empty bad request
+            if (cartTotal == 0)
+                return BadRequest("Cart is empty.");
+            else
+            {
+                Cart cart = new Cart(CalculateCartTotal());
+                return Ok(cart);
+            }
         }
 
         /// <summary>
@@ -99,6 +116,22 @@ namespace CheckOutOrderTotalKata.Controllers
 
             _cart.Remove(itemName);
             return Ok();
+        }
+
+
+        private decimal CalculateCartTotal()
+        {
+            decimal cartTotal = 0;
+            StoreItem currentStoreItem;
+            List<StoreItem> storeItems = _store.GetAllItems().ToList();
+
+            foreach (var item in _cart.GetAllItems())
+            {
+                currentStoreItem = storeItems.FirstOrDefault(x => x.Name == item.Name);
+                cartTotal += (currentStoreItem.Price * item.Quantity);
+            }
+
+            return cartTotal;
         }
     }
 }
