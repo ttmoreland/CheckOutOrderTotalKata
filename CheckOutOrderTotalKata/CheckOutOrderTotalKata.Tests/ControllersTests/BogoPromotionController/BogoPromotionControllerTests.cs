@@ -13,7 +13,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
     public class BogoPromotionControllerTests
     {
         BogoPromotionController _controller;
-        BaseCacheService<StoreItem> _store;
+        readonly BaseCacheService<StoreItem> _store;
         BaseCacheService<BogoPromotion> _bogos;
 
         public BogoPromotionControllerTests()

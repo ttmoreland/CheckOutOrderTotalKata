@@ -26,14 +26,35 @@ namespace CheckOutOrderTotalKata.Controllers
         private readonly BaseCacheService<StoreItem> _store;
 
         /// <summary>
+        /// The markdowns
+        /// </summary>
+        private readonly BaseCacheService<MarkdownPromotion> _markdowns;
+
+        /// <summary>
+        /// The multiples
+        /// </summary>
+        private readonly BaseCacheService<MultiplesPromotion> _multiples;
+
+        /// <summary>
+        /// The bogos
+        /// </summary>
+        private readonly BaseCacheService<BogoPromotion> _bogos;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CartController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         public CartController(BaseCacheService<CartItem> cartService, 
-                              BaseCacheService<StoreItem> storeService)
+                              BaseCacheService<StoreItem> storeService,
+                              BaseCacheService<MarkdownPromotion> markdownService,
+                              BaseCacheService<MultiplesPromotion> multiplesService,
+                              BaseCacheService<BogoPromotion> bogosService)
         {
             _cart = cartService;
             _store = storeService;
+            _bogos = bogosService;
+            _markdowns = markdownService;
+            _multiples = multiplesService;
         }
 
         /// <summary>
@@ -52,11 +73,16 @@ namespace CheckOutOrderTotalKata.Controllers
         public ActionResult<Cart> GetCartTotal()
         {
             Cart cart = new Cart();
+
+            //add items to cart with price
             cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
 
             //if cart is empty bad request
             if (cart.Total == 0 || _cart.GetAllItems().Count() == 0)
                 return BadRequest("Cart is empty.");
+
+            //add promotional line items after adding items to cart with price
+            cart.ApplyPromotions(_markdowns?.GetAllItems(), _multiples?.GetAllItems(), _bogos?.GetAllItems());
 
             return Ok(cart);
         }

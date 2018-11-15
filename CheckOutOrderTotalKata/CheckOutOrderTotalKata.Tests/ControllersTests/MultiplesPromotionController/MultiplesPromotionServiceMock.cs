@@ -23,7 +23,7 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
             cache.SetCachedItem(CacheKey, _multiples);
         }
 
-        public override string CacheKey => CacheKeys.MarkdownPromotion;
+        public override string CacheKey => CacheKeys.MultiplesPromotion;
 
         public override MultiplesPromotion GetItem(string Name)
         {

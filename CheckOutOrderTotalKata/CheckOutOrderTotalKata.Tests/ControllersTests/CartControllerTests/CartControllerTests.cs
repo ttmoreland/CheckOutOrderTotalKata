@@ -14,7 +14,10 @@ namespace CheckOutOrderTotalKata.ControllersTests
     {
         CartController _controller;
         BaseCacheService<CartItem> _cart;
-        BaseCacheService<StoreItem> _store;
+        readonly BaseCacheService<StoreItem> _store;
+        readonly BaseCacheService<MarkdownPromotion> _markdowns;
+        readonly BaseCacheService<BogoPromotion> _bogos;
+        readonly BaseCacheService<MultiplesPromotion> _multiples;
 
         public CartControllerTests()
         {
@@ -22,7 +25,11 @@ namespace CheckOutOrderTotalKata.ControllersTests
 
             _cart = new CartServiceMock(cache);
             _store = new StoreServiceMock(cache);
-            _controller = new CartController(_cart, _store);
+            _markdowns = new MarkdownPromotionServiceMock(cache);
+            _bogos = new BogoPromotionServiceMock(cache);
+            _multiples = new MultiplesPromotionServiceMock(cache);
+
+            _controller = new CartController(_cart, _store, _markdowns, _multiples, _bogos);
         }
 
         #region Get()
@@ -67,6 +74,8 @@ namespace CheckOutOrderTotalKata.ControllersTests
             var badResponse = _controller.GetCartTotal();
             Assert.IsType<BadRequestObjectResult>(badResponse.Result);
         }
+
+
         #endregion
 
         #region Getitem()

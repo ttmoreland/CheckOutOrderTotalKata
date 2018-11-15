@@ -34,6 +34,11 @@ namespace CheckOutOrderTotalKata.Models
         }
 
 
+        /// <summary>
+        /// Adds the priced items.
+        /// </summary>
+        /// <param name="cartItems">The cart items.</param>
+        /// <param name="storeItems">The store items.</param>
         public void AddPricedItems(List<CartItem> cartItems, List<StoreItem> storeItems)
         {
             StoreItem currentStoreItem;
@@ -41,6 +46,55 @@ namespace CheckOutOrderTotalKata.Models
             {
                 currentStoreItem = storeItems.FirstOrDefault(x => x.Name == item.Name);
                 PricedItems.Add(new PricedCartItem(item.Name, item.Quantity, currentStoreItem.Price));
+            }
+        }
+
+        /// <summary>
+        /// Applies the promotions.
+        /// </summary>
+        /// <param name="markdowns">The markdowns.</param>
+        /// <param name="multiples">The multiples.</param>
+        /// <param name="bogos">The bogos.</param>
+        public void ApplyPromotions(List<MarkdownPromotion> markdowns, List<MultiplesPromotion> multiples, List<BogoPromotion> bogos)
+        {
+            ApplyMarkdowns(markdowns);
+            ApplyMultiples(multiples);
+            ApplyBogos(bogos);
+        }
+
+        /// <summary>
+        /// Applies the markdowns.
+        /// </summary>
+        /// <param name="markdowns">The markdowns.</param>
+        private void ApplyMarkdowns(List<MarkdownPromotion> markdowns)
+        {
+            if(markdowns != null && markdowns.Count != 0)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Applies the multiples.
+        /// </summary>
+        /// <param name="multiples">The multiples.</param>
+        private void ApplyMultiples(List<MultiplesPromotion> multiples)
+        {
+            if (multiples != null && multiples.Count != 0)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Applies the bogos.
+        /// </summary>
+        /// <param name="bogos">The bogos.</param>
+        private void ApplyBogos(List<BogoPromotion> bogos)
+        {
+            if (bogos != null && bogos.Count != 0)
+            {
+
             }
         }
     }

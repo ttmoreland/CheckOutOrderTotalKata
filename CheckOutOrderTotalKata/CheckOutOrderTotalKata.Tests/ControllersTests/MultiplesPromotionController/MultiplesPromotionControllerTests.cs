@@ -13,7 +13,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
     public class MultiplesPromotionControllerTests
     {
         MultiplesPromotionController _controller;
-        BaseCacheService<StoreItem> _store;
+        readonly BaseCacheService<StoreItem> _store;
         BaseCacheService<MultiplesPromotion> _multiples;
 
         public MultiplesPromotionControllerTests()

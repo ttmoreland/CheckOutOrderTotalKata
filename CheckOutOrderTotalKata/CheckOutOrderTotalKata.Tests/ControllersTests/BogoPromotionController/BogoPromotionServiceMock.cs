@@ -22,7 +22,7 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
             cache.SetCachedItem(CacheKey, _bogo);
         }
 
-        public override string CacheKey => CacheKeys.MarkdownPromotion;
+        public override string CacheKey => CacheKeys.BogoPromotion;
 
         public override BogoPromotion GetItem(string Name)
         {

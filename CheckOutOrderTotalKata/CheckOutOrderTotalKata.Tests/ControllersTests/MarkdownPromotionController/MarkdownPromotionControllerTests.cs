@@ -13,7 +13,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
     public class MarkdownPromotionControllerTests
     {
         MarkdownPromotionController _controller;
-        BaseCacheService<StoreItem> _store;
+        readonly BaseCacheService<StoreItem> _store;
         BaseCacheService<MarkdownPromotion> _markdowns;
 
         public MarkdownPromotionControllerTests()
