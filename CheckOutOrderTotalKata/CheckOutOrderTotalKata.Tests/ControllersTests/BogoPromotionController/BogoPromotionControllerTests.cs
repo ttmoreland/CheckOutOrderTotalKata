@@ -107,6 +107,14 @@ namespace CheckOutOrderTotalKata.ControllersTests
             var okResponse = _controller.Post(item);
             Assert.Equal(2, _bogos.GetAllItems().Count());
         }
+
+        [Fact]
+        public void MultiplesPromotionController_AddItem_ItemDoesntExistInStore()
+        {
+            var badItem = new BogoPromotion("SomeItemThatDoesntExistInStore", 2, 1, 50, 3);
+            var badResponse = _controller.Post(badItem);
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
         #endregion
 
     }

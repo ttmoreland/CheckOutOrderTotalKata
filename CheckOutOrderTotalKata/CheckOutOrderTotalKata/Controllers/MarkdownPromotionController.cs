@@ -50,6 +50,10 @@ namespace CheckOutOrderTotalKata.Controllers
             if (_markdowns.GetItem(value.ItemName) != null)
                 return BadRequest($"An item already exists with the name {value.ItemName}.");
 
+            //item needs set up in store to be valid
+            if (_store.GetItem(value.ItemName) == null)
+                return BadRequest($"The item ({value.ItemName}) has not been set up.");
+
             var item = _markdowns.Add(value);
             return CreatedAtAction("Get", new { id = item.ItemName }, item);
         }
