@@ -7,7 +7,7 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace CheckOutOrderTotalKata.Tests.ControllersTests
+namespace CheckOutOrderTotalKata.ControllersTests
 {
     public class BogoPromotionControllerTests
     {

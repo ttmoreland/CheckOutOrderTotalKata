@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using CheckOutOrderTotalKata.Models;
 using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
+using CheckOutOrderTotalKata.ModelTests.ControllersTests;
 
-namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
+namespace CheckOutOrderTotalKata.ControllersTests
 {
     public class CartControllerTests
     {

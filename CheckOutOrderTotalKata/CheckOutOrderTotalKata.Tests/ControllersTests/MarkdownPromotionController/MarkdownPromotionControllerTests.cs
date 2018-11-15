@@ -7,7 +7,7 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace CheckOutOrderTotalKata.Tests.ControllersTests
+namespace CheckOutOrderTotalKata.ControllersTests
 {
     public class MarkdownPromotionControllerTests
     {
@@ -41,6 +41,28 @@ namespace CheckOutOrderTotalKata.Tests.ControllersTests
         }
         #endregion
 
+        #region GetItem()
+        [Fact]
+        public void MarkdownPromotionController_GetItem_ReturnNotFound()
+        {
+            var notFoundResult = _controller.Get("SomeItemThatDoesntExist");
+            Assert.IsType<NotFoundResult>(notFoundResult.Result);
+        }
+
+        [Fact]
+        public void MarkdownPromotionController_GetItem_ReturnsOkResult()
+        {
+            var okResult = _controller.Get("Soup");
+            Assert.IsType<OkObjectResult>(okResult.Result);
+        }
+
+        [Fact]
+        public void MarkdownPromotionController_GetItem_ReturnsExpectedItem()
+        {
+            var okResult = _controller.Get("Soup").Result as OkObjectResult;
+            var item = Assert.IsType<MarkdownPromotion>(okResult.Value);
+        }
+        #endregion
 
     }
 }

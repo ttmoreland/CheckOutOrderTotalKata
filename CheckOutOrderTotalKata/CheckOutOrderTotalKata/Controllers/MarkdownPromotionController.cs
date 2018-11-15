@@ -25,5 +25,18 @@ namespace CheckOutOrderTotalKata.Controllers
             var items = _markdowns.GetAllItems();
             return Ok(items);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<MarkdownPromotion> Get(string itemName)
+        {
+            var item = _markdowns.GetItem(itemName);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item);
+        }
     }
 }
