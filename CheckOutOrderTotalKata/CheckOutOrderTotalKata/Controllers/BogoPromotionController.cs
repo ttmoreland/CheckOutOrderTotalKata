@@ -63,6 +63,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return Ok(item);
         }
 
+        /// <summary>
+        /// Posts the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Post([FromBody] BogoPromotion value)
         {
@@ -82,6 +87,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return CreatedAtAction("Get", new { id = item.ItemName }, item);
         }
 
+        /// <summary>
+        /// Removes the specified item name.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public ActionResult Remove(string itemName)
         {

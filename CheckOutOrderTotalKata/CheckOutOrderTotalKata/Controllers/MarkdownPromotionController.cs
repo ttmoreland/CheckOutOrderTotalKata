@@ -5,20 +5,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CheckOutOrderTotalKata.Controllers
 {
+    /// <summary>
+    /// Markdown Promotion Controller
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class MarkdownPromotionController : ControllerBase
     {
+        /// <summary>
+        /// The markdowns
+        /// </summary>
         private readonly BaseCacheService<MarkdownPromotion> _markdowns;
 
+        /// <summary>
+        /// The store
+        /// </summary>
         private readonly BaseCacheService<StoreItem> _store;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MarkdownPromotionController"/> class.
+        /// </summary>
+        /// <param name="markdownService">The markdown service.</param>
+        /// <param name="storeService">The store service.</param>
         public MarkdownPromotionController(BaseCacheService<MarkdownPromotion> markdownService, BaseCacheService<StoreItem> storeService)
         {
             _markdowns = markdownService;
             _store = storeService;
         }
 
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<List<StoreItem>> Get()
         {
@@ -26,6 +45,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return Ok(items);
         }
 
+        /// <summary>
+        /// Gets the specified item name.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult<MarkdownPromotion> Get(string itemName)
         {
@@ -39,6 +63,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return Ok(item);
         }
 
+        /// <summary>
+        /// Posts the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Post([FromBody] MarkdownPromotion value)
         {
@@ -58,6 +87,11 @@ namespace CheckOutOrderTotalKata.Controllers
             return CreatedAtAction("Get", new { id = item.ItemName }, item);
         }
 
+        /// <summary>
+        /// Removes the specified item name.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public ActionResult Remove(string itemName)
         {
