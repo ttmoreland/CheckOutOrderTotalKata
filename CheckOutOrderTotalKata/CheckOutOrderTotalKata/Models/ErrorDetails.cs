@@ -13,7 +13,7 @@ namespace CheckOutOrderTotalKata.Models
         /// <value>
         /// The status code.
         /// </value>
-        public int StatusCode { get; set; }
+        public int StatusCode { get; private set; }
 
         /// <summary>
         /// Gets or sets the message.
@@ -21,8 +21,18 @@ namespace CheckOutOrderTotalKata.Models
         /// <value>
         /// The message.
         /// </value>
-        public string Message { get; set; }
+        public string Message { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorDetails"/> class.
+        /// </summary>
+        /// <param name="StatusCode">The status code.</param>
+        /// <param name="Message">The message.</param>
+        public ErrorDetails(int StatusCode, string Message)
+        {
+            this.StatusCode = StatusCode;
+            this.Message = Message;
+        }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

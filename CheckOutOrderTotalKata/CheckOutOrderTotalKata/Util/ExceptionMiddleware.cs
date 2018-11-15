@@ -27,13 +27,8 @@ namespace CheckOutOrderTotalKata.Util
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        await context.Response.WriteAsync(new ErrorDetails()
-                        {
-                            StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error."
-                        }.ToString());
-                    }
-                    
+                        await context.Response.WriteAsync(new ErrorDetails(context.Response.StatusCode, "Internal Server Error").ToString());
+                    }                   
                 });
             });
         }
