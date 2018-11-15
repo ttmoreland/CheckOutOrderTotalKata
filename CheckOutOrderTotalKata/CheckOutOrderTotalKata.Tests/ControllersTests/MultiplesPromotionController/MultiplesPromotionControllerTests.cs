@@ -116,5 +116,31 @@ namespace CheckOutOrderTotalKata.ControllersTests
             Assert.IsType<BadRequestObjectResult>(badResponse);
         }
         #endregion
+
+        #region Remove()
+        [Fact]
+        public void MarkdownPromotionController_Delete_ReturnsNotFound()
+        {
+            var fakeitem = "SomeFakeitem";
+            var badResponse = _controller.Remove(fakeitem);
+            Assert.IsType<NotFoundResult>(badResponse);
+        }
+
+        [Fact]
+        public void MarkdownPromotionController_Delete_ReturnsOkResult()
+        {
+            var item = "Apple";
+            var okResponse = _controller.Remove(item);
+            Assert.IsType<OkResult>(okResponse);
+        }
+
+        [Fact]
+        public void MarkdownPromotionController_Delete_ValidateRemovesItem()
+        {
+            var item = "Apple";
+            var okResponse = _controller.Remove(item);
+            Assert.Single(_multiples.GetAllItems());
+        }
+        #endregion
     }
 }

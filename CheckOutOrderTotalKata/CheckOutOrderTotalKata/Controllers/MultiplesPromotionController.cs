@@ -58,5 +58,18 @@ namespace CheckOutOrderTotalKata.Controllers
             return CreatedAtAction("Get", new { id = item.ItemName }, item);
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult Remove(string itemName)
+        {
+            var existingItem = _multiples.GetItem(itemName);
+
+            if (existingItem == null)
+            {
+                return NotFound();
+            }
+
+            _multiples.Remove(existingItem);
+            return Ok();
+        }
     }
 }
