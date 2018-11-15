@@ -18,5 +18,12 @@ namespace CheckOutOrderTotalKata.Controllers
             _markdowns = markdownService;
             _store = storeService;
         }
+
+        [HttpGet]
+        public ActionResult<List<StoreItem>> Get()
+        {
+            var items = _markdowns.GetAllItems();
+            return Ok(items);
+        }
     }
 }
