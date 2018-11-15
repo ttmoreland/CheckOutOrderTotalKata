@@ -50,16 +50,14 @@ namespace CheckOutOrderTotalKata.Controllers
         [Route("GetCartTotal")]
         public ActionResult<Cart> GetCartTotal()
         {
-            decimal cartTotal = CalculateCartTotal();
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems().ToList(), _store.GetAllItems().ToList());
 
             //if cart is empty bad request
-            if (cartTotal == 0)
+            if (cart.Total == 0 || _cart.GetAllItems().Count() == 0)
                 return BadRequest("Cart is empty.");
-            else
-            {
-                Cart cart = new Cart(CalculateCartTotal());
-                return Ok(cart);
-            }
+
+            return Ok(cart);
         }
 
         /// <summary>
@@ -117,22 +115,6 @@ namespace CheckOutOrderTotalKata.Controllers
 
             _cart.Remove(existingItem);
             return Ok();
-        }
-
-
-        private decimal CalculateCartTotal()
-        {
-            decimal cartTotal = 0;
-            StoreItem currentStoreItem;
-            List<StoreItem> storeItems = _store.GetAllItems().ToList();
-
-            foreach (var item in _cart.GetAllItems())
-            {
-                currentStoreItem = storeItems.FirstOrDefault(x => x.Name == item.Name);
-                cartTotal += (currentStoreItem.Price * item.Quantity);
-            }
-
-            return cartTotal;
         }
     }
 }
