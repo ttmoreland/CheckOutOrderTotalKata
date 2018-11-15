@@ -18,5 +18,12 @@ namespace CheckOutOrderTotalKata.Controllers
             _multiples = multiplesService;
             _store = storeService;
         }
+
+        [HttpGet]
+        public ActionResult<List<StoreItem>> Get()
+        {
+            var items = _multiples.GetAllItems();
+            return Ok(items);
+        }
     }
 }
