@@ -17,7 +17,7 @@ namespace CheckOutOrderTotalKata.Models
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public int QuantityImpacted { get; private set; }
 
-        [Range(0, 100, ErrorMessage = "Please enter a value between 1 and 100.")]
+        [Range(1, 100, ErrorMessage = "Please enter a value between 1 and 100.")]
         public int PercentOff { get; private set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]

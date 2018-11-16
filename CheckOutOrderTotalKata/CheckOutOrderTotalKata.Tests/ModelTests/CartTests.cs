@@ -94,5 +94,57 @@ namespace CheckOutOrderTotalKata.ModelTests
             Assert.Equal(32.5625m, cart.Total);
 
         }
+
+        [Fact]
+        public void Cart_TestBogoPromotion_BuyNGetMFreeEach()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<BogoPromotion> bogos = new List<BogoPromotion> { new BogoPromotion("Apple", 1, 1, 100, 0) };
+            cart.ApplyPromotions(null, null, bogos);
+            Assert.Equal(29.5625m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestBogoPromotion_BuyNGetMFreeWeight()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<BogoPromotion> bogos = new List<BogoPromotion> { new BogoPromotion("Steak", 1, 1, 100, 0) };
+            cart.ApplyPromotions(null, null, bogos);
+            Assert.Equal(23.0625m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestBogoPromotion_BuyNGetMFreeLimit()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<BogoPromotion> bogos = new List<BogoPromotion> { new BogoPromotion("Steak", 1, 1, 100, 1) };
+            cart.ApplyPromotions(null, null, bogos);
+            Assert.Equal(27.8125m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestBogoPromotion_BuyNGetMHalfOff()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<BogoPromotion> bogos = new List<BogoPromotion> { new BogoPromotion("Steak", 1, 1, 50, 0) };
+            cart.ApplyPromotions(null, null, bogos);
+            Assert.Equal(27.8125m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestBogoPromotion_BuyNGetMHalfOffLimit()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<BogoPromotion> bogos = new List<BogoPromotion> { new BogoPromotion("Steak", 1, 1, 50, 1) };
+            cart.ApplyPromotions(null, null, bogos);
+            Assert.Equal(30.1875m, cart.Total);
+        }
+
+
     }
 }

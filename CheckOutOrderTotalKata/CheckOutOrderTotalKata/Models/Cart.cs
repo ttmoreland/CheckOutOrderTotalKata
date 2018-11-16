@@ -129,7 +129,29 @@ namespace CheckOutOrderTotalKata.Models
         {
             if (bogos != null && bogos.Count != 0)
             {
-
+                decimal discount = 0;
+                int counter = 0;
+                decimal quantity = 0;
+                PricedCartItem currentItem;
+                foreach (BogoPromotion promo in bogos)
+                {
+                    currentItem = GetGroupedCartItems().FirstOrDefault(x => x.Name == promo.Name);
+                    if (currentItem != null && currentItem.Quantity > promo.QuantityThreshold)
+                    {
+                        quantity = currentItem.Quantity;
+                        while (quantity > 0 && (promo.QuantityLimit == 0 || counter < promo.QuantityLimit))
+                        {
+                            if (quantity > promo.QuantityThreshold)
+                            {
+                                discount += promo.QuantityImpacted * promo.PercentOff * .01m * currentItem.Price;
+                                quantity -= promo.QuantityImpacted;
+                                counter++;
+                            }
+                            quantity -= promo.QuantityThreshold;
+                        }
+                        PricedItems.Add(new PricedCartItem($"Buy 2 {currentItem.Name} get {currentItem.Name} {promo.PercentOff}% off promotion.", 1, discount * -1));
+                    }
+                }
             }
         }
 
