@@ -79,6 +79,7 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <remarks>
         /// Sample request:
         /// Buy 1 Bread Get 1 @100% (Free), Limit 2
+        /// 
         ///     {
         ///        name: "Bread",
         ///        quantityThreshold: 1,

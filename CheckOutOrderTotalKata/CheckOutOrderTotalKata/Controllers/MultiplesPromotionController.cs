@@ -78,6 +78,7 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <remarks>
         /// Sample request:
         /// Buy 2 Guiness 6-Packs for 10.99
+        /// 
         ///     {
         ///        name: "Guiness 6-Pack",
         ///        quantity: 2,

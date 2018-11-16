@@ -78,6 +78,7 @@ namespace CheckOutOrderTotalKata.Controllers
         /// <remarks>
         /// Sample request:
         /// Soup is $.20 off
+        /// 
         ///     {
         ///        name: "Soup",
         ///        discount: -.20
