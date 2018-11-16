@@ -143,13 +143,13 @@ namespace CheckOutOrderTotalKata.Models
                         {
                             if (quantity > promo.QuantityThreshold)
                             {
-                                discount += promo.QuantityImpacted * promo.PercentOff * .01m * currentItem.Price;
+                                discount = promo.QuantityImpacted * promo.PercentOff * .01m * currentItem.Price;
                                 quantity -= promo.QuantityImpacted;
                                 counter++;
+                                PricedItems.Add(new PricedCartItem($"Buy {promo.QuantityThreshold} {currentItem.Name} get {promo.QuantityImpacted} {currentItem.Name} {promo.PercentOff}% off promotion.", 1, discount * -1));
                             }
                             quantity -= promo.QuantityThreshold;
                         }
-                        PricedItems.Add(new PricedCartItem($"Buy 2 {currentItem.Name} get {currentItem.Name} {promo.PercentOff}% off promotion.", 1, discount * -1));
                     }
                 }
             }
