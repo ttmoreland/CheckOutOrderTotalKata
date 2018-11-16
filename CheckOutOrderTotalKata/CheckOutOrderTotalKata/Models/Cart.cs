@@ -22,7 +22,7 @@ namespace CheckOutOrderTotalKata.Models
         /// <value>
         /// The priced items.
         /// </value>
-        private List<PricedCartItem> PricedItems { get; set; }
+        public List<PricedCartItem> PricedItems { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cart" /> class.
@@ -74,8 +74,13 @@ namespace CheckOutOrderTotalKata.Models
                 foreach  (MarkdownPromotion promo in markdowns)
                 {
                     currentItem = GetGroupedCartItems().FirstOrDefault(x => x.Name == promo.Name);
-                    discount = currentItem.Quantity * promo.Discount;
-                    PricedItems.Add(new PricedCartItem($"Markdown on {promo.Name}.", 1, discount));
+
+                    //only apply discount if discount will be less than or equal to the price of the product
+                    if (currentItem.Price + promo.Discount >= 0)
+                    {
+                        discount = currentItem.Quantity * promo.Discount;
+                        PricedItems.Add(new PricedCartItem($"Markdown on {promo.Name}.", 1, discount));
+                    }
                 }
             }
         }
@@ -88,7 +93,31 @@ namespace CheckOutOrderTotalKata.Models
         {
             if (multiples != null && multiples.Count != 0)
             {
+                decimal discount = 0;
+                decimal mod = 0;
+                decimal extensionWithDiscount = 0;
+                PricedCartItem currentItem;
+                foreach (MultiplesPromotion promo in multiples)
+                {
+                    currentItem = GetGroupedCartItems().FirstOrDefault(x => x.Name == promo.Name);
+                    //Quantity needs to be larger than promo quantity
+                    if (currentItem != null && currentItem.Quantity > promo.Quantity)
+                    {
+                        mod = currentItem.Quantity % promo.Quantity;
 
+                        //calculating what the extension would have already been with discount
+                        extensionWithDiscount = ((currentItem.Quantity - (mod * promo.Quantity)) * currentItem.Price) + (mod * promo.Price);
+
+                        //taking extension - discounted extension to derive discount amount
+                        discount = (currentItem.Extension - extensionWithDiscount) * -1;
+                        PricedItems.Add(new PricedCartItem($"{promo.Quantity} {currentItem.Name} for {promo.Price} promotion.", 1, discount));
+                    } else if(currentItem != null && currentItem.Quantity == promo.Quantity)
+                    {
+                        //taking extension - discounted extension to derive discount amount
+                        discount = (currentItem.Extension - promo.Price) * -1;
+                        PricedItems.Add(new PricedCartItem($"{promo.Quantity} {currentItem.Name} for {promo.Price} promotion.", 1, discount));
+                    }
+                }
             }
         }
 

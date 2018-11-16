@@ -35,8 +35,18 @@ namespace CheckOutOrderTotalKata.ModelTests
             Assert.Equal(32.5625m, cart.Total);
         }
 
+
         [Fact]
-        public void Cart_TestMarkdownPromotion()
+        public void Cart_TestPromotion_NoPromotions()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            cart.ApplyPromotions(null, null, null);
+            Assert.Equal(32.5625m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestMarkdownPromotion_ValidPromotion()
         {
             Cart cart = new Cart();
             cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
@@ -45,12 +55,44 @@ namespace CheckOutOrderTotalKata.ModelTests
         }
 
         [Fact]
-        public void Cart_TestMultiples()
+        public void Cart_TestMarkdownPromotion_HigherThanItemPrice()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<MarkdownPromotion> markDowns = new List<MarkdownPromotion> { new MarkdownPromotion("Soup", -1.01m) };
+            
+            cart.ApplyPromotions(markDowns, null, null);
+            Assert.Equal(32.5625m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestMultiplesPromotion_Remainder()
         {
             Cart cart = new Cart();
             cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
             cart.ApplyPromotions(null, _multiples.GetAllItems(), null);
-            Assert.Equal(12, cart.Total);
+            Assert.Equal(31.5625m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestMultiplesPromotion_NoRemainder()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<MultiplesPromotion> multiples = new List<MultiplesPromotion> { new MultiplesPromotion("Apple", 3, 3) };
+            cart.ApplyPromotions(null, multiples, null);
+            Assert.Equal(26.5625m, cart.Total);
+        }
+
+        [Fact]
+        public void Cart_TestMultiplesPromotion_DidntMeetQuantityThreshold()
+        {
+            Cart cart = new Cart();
+            cart.AddPricedItems(_cart.GetAllItems(), _store.GetAllItems());
+            List<MultiplesPromotion> multiples = new List<MultiplesPromotion> { new MultiplesPromotion("Apple", 5, 3) };
+            cart.ApplyPromotions(null, multiples, null);
+            Assert.Equal(32.5625m, cart.Total);
+
         }
     }
 }

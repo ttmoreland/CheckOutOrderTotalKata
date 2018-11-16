@@ -16,7 +16,7 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
         {
             _multiples = new List<MultiplesPromotion>()
             {
-                new MultiplesPromotion("Apple", 3, 7.50m),
+                new MultiplesPromotion("Apple", 2, 5),
                 new MultiplesPromotion("Chorizo", 2, 7.00m)
             };
 
