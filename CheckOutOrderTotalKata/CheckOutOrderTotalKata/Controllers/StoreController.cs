@@ -9,22 +9,33 @@ namespace CheckOutOrderTotalKata.Controllers
     /// Store Controller
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class StoreController : ControllerBase
     {
+        /// <summary>
+        /// The store
+        /// </summary>
         private readonly BaseCacheService<StoreItem> _store;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StoreController"/> class.
+        /// </summary>
+        /// <param name="service">The service.</param>
         public StoreController(BaseCacheService<StoreItem> service)
         {
             _store = service;
         }
 
         /// <summary>
-        /// Gets this instance.
+        /// Gets a list of items in the store.
         /// </summary>
         /// <returns></returns>
+        /// <response code="200">Gets the list of items in the store.</response>
         [HttpGet]
+        [ProducesResponseType(200)]
+        [Produces(typeof(IEnumerable<StoreItem>))]
         public ActionResult<List<StoreItem>> Get()
         {
             var items = _store.GetAllItems();
@@ -32,12 +43,17 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets the specified item name.
+        /// Gets the specified store item by name.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
+        /// <returns>Returns a specific store item.</returns>
+        /// <response code="200">Returns the item.</response>
+        /// <response code="404">The item was not found.</response>   
         [HttpGet("{id}")]
-        public ActionResult<CartItem> Get(string itemName)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Produces(typeof(StoreItem))]
+        public ActionResult<StoreItem> Get(string itemName)
         {
             var item = _store.GetItem(itemName);
 
@@ -50,11 +66,24 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Posts the specified value.
+        /// Adds the specified item to the store.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     {
+        ///        "name": "bread",
+        ///        "price": 1.39
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="value">New Store Item.</param>
+        /// <returns>A newly created store item.</returns>
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">If the item is not valid or is a duplicate.</response>   
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public ActionResult Post([FromBody] StoreItem value)
         {
             //Validate item
@@ -70,11 +99,15 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Removes the specified item name.
+        /// Removes the specified store item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <returns></returns>
+        /// <response code="200">Item successfully deleted.</response>
+        /// <response code="404">The item is not found.</response>  
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
             var existingItem = _store.GetItem(itemName);

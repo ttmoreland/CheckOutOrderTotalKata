@@ -9,6 +9,7 @@ namespace CheckOutOrderTotalKata.Controllers
     /// Bogo Promotion Controller
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class BogoPromotionController : ControllerBase
@@ -35,9 +36,13 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets this instance.
+        /// Gets the list of buy one get one promotions.
         /// </summary>
         /// <returns></returns>
+        /// <response code="200">Gets the list of buy one get one promotions.</response>
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [Produces(typeof(IEnumerable<CartItem>))]
         [HttpGet]
         public ActionResult<List<BogoPromotion>> Get()
         {
@@ -46,11 +51,16 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets the specified item name.
+        /// Gets the specified buy one get one promotion item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
+        /// <returns>Gets the specified buy one get one promotion item.</returns>
+        /// <response code="200">Returns the item.</response>
+        /// <response code="404">The item was not found.</response>   
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Produces(typeof(BogoPromotion))]
         public ActionResult<BogoPromotion> Get(string itemName)
         {
             var item = _bogos.GetItem(itemName);
@@ -64,11 +74,27 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Posts the specified value.
+        /// Adds the specified buy one get one promotion.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// Buy 1 Bread Get 1 @100% (Free), Limit 2
+        ///     {
+        ///        name: "Bread",
+        ///        quantityThreshold: 1,
+        ///        quantityImpacted: 1,
+        ///        percentOff: 100,
+        ///        quantityLimit: 2
+        ///     }
+        ///
+        /// </remarks>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>A newly created buy one get one promotion item.</returns>
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">If the item is not valid, it's a duplicate, or item hasn't been set up in the store.</response>   
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public ActionResult Post([FromBody] BogoPromotion value)
         {
             //Validate item
@@ -88,11 +114,15 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Removes the specified item name.
+        /// Removes the specified buy one get one promotion.
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
+        /// <param name="itemName">Name of the buy one get one promotion item.</param>
         /// <returns></returns>
+        /// <response code="200">Item successfully deleted.</response>
+        /// <response code="404">The item is not found.</response>  
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
             var existingItem = _bogos.GetItem(itemName);

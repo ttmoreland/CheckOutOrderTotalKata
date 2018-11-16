@@ -11,6 +11,7 @@ namespace CheckOutOrderTotalKata.Controllers
     /// Cart Controller
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CartController : ControllerBase
@@ -41,9 +42,13 @@ namespace CheckOutOrderTotalKata.Controllers
         private readonly BaseCacheService<BogoPromotion> _bogos;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CartController"/> class.
+        /// Initializes a new instance of the <see cref="CartController" /> class.
         /// </summary>
-        /// <param name="service">The service.</param>
+        /// <param name="cartService">The cart service.</param>
+        /// <param name="storeService">The store service.</param>
+        /// <param name="markdownService">The markdown service.</param>
+        /// <param name="multiplesService">The multiples service.</param>
+        /// <param name="bogosService">The bogos service.</param>
         public CartController(BaseCacheService<CartItem> cartService, 
                               BaseCacheService<StoreItem> storeService,
                               BaseCacheService<MarkdownPromotion> markdownService,
@@ -58,18 +63,30 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets list of cart items. GET: api/Cart
+        /// Gets list of cart items.
         /// </summary>
         /// <returns></returns>
+        /// <response code="200">Gets the list of cart items.</response>
         [HttpGet]
+        [ProducesResponseType(200)]
+        [Produces(typeof(IEnumerable<CartItem>))]
         public ActionResult<List<CartItem>> Get()
         {
             var items = _cart.GetAllItems();
             return Ok(items);
         }
 
+        /// <summary>
+        /// Gets the cart total.
+        /// </summary>
+        /// <returns>The items in the cart with prices and discounts applied.</returns>
+        /// <response code="200">Returns the cart total.</response>
+        /// <response code="400">Empty cart.</response>   
         [HttpGet]
         [Route("GetCartTotal")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [Produces(typeof(Cart))]
         public ActionResult<Cart> GetCartTotal()
         {
             Cart cart = new Cart();
@@ -88,11 +105,16 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets the specified item by name. GET: api/Cart/SomeItem
+        /// Gets the specified cart item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
+        /// <returns>Gets the specified cart item.</returns>
+        /// <response code="200">Returns the item.</response>
+        /// <response code="404">The item was not found.</response>   
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Produces(typeof(CartItem))]
         public ActionResult<CartItem> Get(string itemName)
         {
             var item = _cart.GetItem(itemName);
@@ -106,11 +128,24 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Adds the specified value. POST: api/Cart
+        /// Adds the specified item to the cart. If the item isn't supplied with a quantity it is defaulted to 1.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     {
+        ///        "name": "bread",
+        ///        "quantity": 2
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="value">New Cart Item.</param>
+        /// <returns>A newly created Cart Item.</returns>
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">If the item is not valid or hasn't been set up in the store.</response>   
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public ActionResult Post([FromBody] CartItem value)
         {
             //validate item
@@ -126,11 +161,15 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Removes the specified item by name. DELETE: api/Cart/SomeItem
+        /// Removes the specified cart item by name.
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
+        /// <param name="itemName">Name of the cart item.</param>
         /// <returns></returns>
+        /// <response code="200">Item successfully deleted.</response>
+        /// <response code="404">The item is not found.</response>  
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
             var existingItem = _cart.GetItem(itemName);

@@ -8,14 +8,12 @@ namespace CheckOutOrderTotalKata.Services
     /// <summary>
     /// BOGO Promotion
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.BaseCacheService{CheckOutOrderTotalKata.Models.BogoPromotion}" />
     public class BogoPromotionService : BaseCacheService<BogoPromotion>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BogoPromotionService"/> class.
+        /// Initializes a new instance of the <see cref="BogoPromotionService" /> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
-        /// <param name="cacheKey">The cache key.</param>
         public BogoPromotionService(IMemoryCache cache) : base(cache)
         {
         }
@@ -31,7 +29,7 @@ namespace CheckOutOrderTotalKata.Services
         /// <summary>
         /// Gets the item.
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
+        /// <param name="Name">The name.</param>
         /// <returns></returns>
         public override BogoPromotion GetItem(string Name)
         {

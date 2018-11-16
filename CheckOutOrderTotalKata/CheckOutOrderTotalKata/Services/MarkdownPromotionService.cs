@@ -8,7 +8,6 @@ namespace CheckOutOrderTotalKata.Services
     /// <summary>
     /// Markdown Promotion Service
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.BaseCacheService{CheckOutOrderTotalKata.Models.MarkdownPromotion}" />
     public class MarkdownPromotionService : BaseCacheService<MarkdownPromotion>
     {
 
@@ -31,7 +30,7 @@ namespace CheckOutOrderTotalKata.Services
         /// <summary>
         /// Gets the item.
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
+        /// <param name="Name">The name.</param>
         /// <returns></returns>
         public override MarkdownPromotion GetItem(string Name)
         {

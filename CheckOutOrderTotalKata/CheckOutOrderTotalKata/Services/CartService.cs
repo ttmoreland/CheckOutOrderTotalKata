@@ -8,14 +8,12 @@ namespace CheckOutOrderTotalKata.Services
     /// <summary>
     /// Cart Service
     /// </summary>
-    /// <seealso cref="CheckOutOrderTotalKata.Util.ICartService" />
     public class CartService : BaseCacheService<CartItem>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CartService"/> class.
+        /// Initializes a new instance of the <see cref="CartService" /> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
-        /// <param name="cacheKey">The cache key.</param>
         public CartService(IMemoryCache cache) : base(cache)
         {
         }

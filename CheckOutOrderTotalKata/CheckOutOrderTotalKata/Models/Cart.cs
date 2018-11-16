@@ -11,7 +11,7 @@ namespace CheckOutOrderTotalKata.Models
         /// <summary>
         /// Gets the total.
         /// </summary>
-        /// <value
+        /// <value>
         /// The total.
         /// </value>
         public decimal Total => PricedItems.Sum(x => x.Extension);

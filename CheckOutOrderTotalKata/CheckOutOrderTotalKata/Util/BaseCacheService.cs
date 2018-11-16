@@ -19,10 +19,9 @@ namespace CheckOutOrderTotalKata.Util
         private readonly IMemoryCache _cache;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCacheService{T}"/> class.
+        /// Initializes a new instance of the <see cref="BaseCacheService{T}" /> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
-        /// <param name="cacheKey">The cache key.</param>
         public BaseCacheService(IMemoryCache cache)
         {
             _items = cache.GetCachedItem<T>(CacheKey);

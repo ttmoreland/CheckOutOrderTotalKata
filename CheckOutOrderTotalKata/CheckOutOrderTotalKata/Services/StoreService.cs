@@ -9,10 +9,9 @@ namespace CheckOutOrderTotalKata.Services
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StoreService"/> class.
+        /// Initializes a new instance of the <see cref="StoreService" /> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
-        /// <param name="cacheKey">The cache key.</param>
         public StoreService(IMemoryCache cache) : base(cache)
         {
         }

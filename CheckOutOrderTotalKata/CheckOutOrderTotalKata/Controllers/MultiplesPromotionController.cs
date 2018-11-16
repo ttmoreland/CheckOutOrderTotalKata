@@ -9,6 +9,7 @@ namespace CheckOutOrderTotalKata.Controllers
     /// Multiples Promotion Controller
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class MultiplesPromotionController : ControllerBase
@@ -35,10 +36,13 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets this instance.
+        /// Gets the list of multiples promotions.
         /// </summary>
         /// <returns></returns>
+        /// <response code="200">Gets the list of multiples promotions.</response>
         [HttpGet]
+        [ProducesResponseType(200)]
+        [Produces(typeof(IEnumerable<MultiplesPromotion>))]
         public ActionResult<List<MultiplesPromotion>> Get()
         {
             var items = _multiples.GetAllItems();
@@ -46,11 +50,16 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Gets the specified item name.
+        /// Gets the specified multiples promotion item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
+        /// <returns>Gets the specified multiples promotion item.</returns>
+        /// <response code="200">Returns the item.</response>
+        /// <response code="404">The item was not found.</response>   
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Produces(typeof(MultiplesPromotion))]
         public ActionResult<MultiplesPromotion> Get(string itemName)
         {
             var item = _multiples.GetItem(itemName);
@@ -64,11 +73,25 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Posts the specified value.
+        /// Adds the specified multiples promotion.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <remarks>
+        /// Sample request:
+        /// Buy 2 Guiness 6-Packs for 10.99
+        ///     {
+        ///        name: "Guiness 6-Pack",
+        ///        quantity: 2,
+        ///        price: 10.99
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="value">New multiples promotion item.</param>
+        /// <returns>A newly created multiples promotion item.</returns>
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">If the item is not valid, it's a duplicate, or item hasn't been set up in the store.</response>   
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public ActionResult Post([FromBody] MultiplesPromotion value)
         {
             //Validate item
@@ -88,11 +111,15 @@ namespace CheckOutOrderTotalKata.Controllers
         }
 
         /// <summary>
-        /// Removes the specified item name.
+        /// Removes the specified multiples promotion.
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
+        /// <param name="itemName">Name of the multiples promotion item.</param>
         /// <returns></returns>
+        /// <response code="200">Item successfully deleted.</response>
+        /// <response code="404">The item is not found.</response>  
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
             var existingItem = _multiples.GetItem(itemName);
