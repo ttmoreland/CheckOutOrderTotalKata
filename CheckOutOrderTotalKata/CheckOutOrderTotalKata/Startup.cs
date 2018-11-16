@@ -77,6 +77,7 @@ namespace CheckOutOrderTotalKata
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CheckOutOrderKata API V1");
+                c.RoutePrefix = string.Empty;  // Set Swagger UI at apps root
             });
 
             app.UseMvc();
