@@ -9,7 +9,7 @@ namespace CheckOutOrderTotalKata.Models
     /// Priced Cart Item
     /// </summary>
     /// <seealso cref="CheckOutOrderTotalKata.Models.CartItem" />
-    public class PricedCartItem : CartItem
+    public class PricedCartItem
     {
         /// <summary>
         /// Gets the extension.
@@ -20,22 +20,38 @@ namespace CheckOutOrderTotalKata.Models
         public decimal Extension => Price * Quantity;
 
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the quantity.
+        /// </summary>
+        /// <value>
+        /// The quantity.
+        /// </value>
+        public decimal Quantity { get; set; }
+
+        /// <summary>
         /// Gets the price.
         /// </summary>
         /// <value>
         /// The price.
         /// </value>
-        public decimal Price { get; private set; }
+        public decimal Price { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PricedCartItem"/> class.
-        /// </summary>
-        /// <param name="Name">The name.</param>
-        /// <param name="Quantity">The quantity.</param>
-        /// <param name="Price">The price.</param>
-        public PricedCartItem(string Name, decimal Quantity, decimal Price) : base(Name, Quantity)
+        public PricedCartItem(string Name, decimal Quantity, decimal Price)
         {
+            this.Name = Name;
+            this.Quantity = Quantity;
             this.Price = Price;
+        }
+
+        public PricedCartItem()
+        {
         }
     }
 }

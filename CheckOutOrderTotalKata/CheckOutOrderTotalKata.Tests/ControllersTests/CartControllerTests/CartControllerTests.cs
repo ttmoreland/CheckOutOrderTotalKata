@@ -58,14 +58,6 @@ namespace CheckOutOrderTotalKata.ControllersTests
         }
 
         [Fact]
-        public void CartController_GetCartTotal_ReturnsCorrectTotal()
-        {
-            var response = _controller.GetCartTotal().Result as OkObjectResult;
-            var cartResult = response.Value as Cart;
-            Assert.Equal(32.5625m, cartResult.Total);
-        }
-
-        [Fact]
         public void CartController_GetCartTotal_ReturnsBadResponse()
         {
             //clear out cart
@@ -74,7 +66,6 @@ namespace CheckOutOrderTotalKata.ControllersTests
             var badResponse = _controller.GetCartTotal();
             Assert.IsType<BadRequestObjectResult>(badResponse.Result);
         }
-
 
         #endregion
 

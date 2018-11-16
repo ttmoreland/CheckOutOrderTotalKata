@@ -16,7 +16,6 @@ namespace CheckOutOrderTotalKata.Models
         /// </value>
         public decimal Total => PricedItems.Sum(x => x.Extension);
 
-
         /// <summary>
         /// Gets or sets the priced items.
         /// </summary>
@@ -70,7 +69,14 @@ namespace CheckOutOrderTotalKata.Models
         {
             if(markdowns != null && markdowns.Count != 0)
             {
-
+                decimal discount = 0;
+                PricedCartItem currentItem;
+                foreach  (MarkdownPromotion promo in markdowns)
+                {
+                    currentItem = GetGroupedCartItems().FirstOrDefault(x => x.Name == promo.Name);
+                    discount = currentItem.Quantity * promo.Discount;
+                    PricedItems.Add(new PricedCartItem($"Markdown on {promo.Name}.", 1, discount));
+                }
             }
         }
 
@@ -96,6 +102,20 @@ namespace CheckOutOrderTotalKata.Models
             {
 
             }
+        }
+
+
+        private List<PricedCartItem> GetGroupedCartItems()
+        {
+            var query = PricedItems.GroupBy(g => new { g.Name })
+                                 .Select(group => new PricedCartItem
+                                     {
+                                         Name = group.Key.Name,
+                                         Quantity = group.Sum(x => x.Quantity),
+                                         Price = group.First().Price
+                                     }).ToList();
+
+            return query;
         }
     }
 }
