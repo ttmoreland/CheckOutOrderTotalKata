@@ -36,13 +36,17 @@ namespace CheckOutOrderTotalKata.Models
         /// <param name="Quantity">The quantity.</param>
         public CartItem(string Name, decimal Quantity)
         {
-            this.Name = Name;      
+            this.Name = Name;
             if (Quantity == 0)
+            {
                 //Each
                 this.Quantity = 1;
+            }
             else
+            {
                 //Weight
                 this.Quantity = Quantity;
+            }
         }
     }
 }

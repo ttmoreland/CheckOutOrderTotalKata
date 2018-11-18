@@ -88,11 +88,15 @@ namespace CheckOutOrderTotalKata.Controllers
         {
             //Validate item
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
-            
+            }
+
             //Check for duplicate item
             if (_store.GetItem(value.Name) != null)
+            {
                 return BadRequest($"An item already exists with the name {value.Name}.");
+            }
 
             StoreItem item = _store.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);

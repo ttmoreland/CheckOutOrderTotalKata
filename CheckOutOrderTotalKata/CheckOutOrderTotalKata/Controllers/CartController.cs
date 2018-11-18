@@ -96,7 +96,9 @@ namespace CheckOutOrderTotalKata.Controllers
 
             //if cart is empty bad request
             if (cart.Total == 0 || _cart.GetAllItems().Count() == 0)
+            {
                 return BadRequest("Cart is empty.");
+            }
 
             //add promotional line items after adding items to cart with price
             cart.ApplyPromotions(_markdowns?.GetAllItems(), _multiples?.GetAllItems(), _bogos?.GetAllItems());
@@ -150,11 +152,16 @@ namespace CheckOutOrderTotalKata.Controllers
         {
             //validate item
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }
 
             //item needs set up in store to be valid
             if (_store.GetItem(value.Name) == null)
+            {
                 return BadRequest($"The item ({value.Name}) has not been set up.");
+            }
+            
 
             CartItem item = _cart.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);

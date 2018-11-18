@@ -96,15 +96,21 @@ namespace CheckOutOrderTotalKata.Controllers
         {
             //Validate item
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }
 
             //Check for duplicate item
             if (_markdowns.GetItem(value.Name) != null)
+            {
                 return BadRequest($"An item already exists with the name {value.Name}.");
+            }
 
             //item needs set up in store to be valid
             if (_store.GetItem(value.Name) == null)
+            {
                 return BadRequest($"The item ({value.Name}) has not been set up.");
+            }
 
             MarkdownPromotion item = _markdowns.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
