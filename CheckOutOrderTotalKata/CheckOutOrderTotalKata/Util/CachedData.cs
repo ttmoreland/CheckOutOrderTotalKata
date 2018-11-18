@@ -39,7 +39,7 @@ namespace CheckOutOrderTotalKata.Util
         public static void SetCachedItem<T>(this IMemoryCache cache, string cacheKey, List<T> items)
         {
             //Set cache value options
-            var cacheEntryOptions = new MemoryCacheEntryOptions()
+            MemoryCacheEntryOptions cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetPriority(CacheItemPriority.NeverRemove);
 
             //Set cache item

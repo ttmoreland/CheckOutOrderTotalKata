@@ -45,7 +45,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(IEnumerable<MultiplesPromotion>))]
         public ActionResult<List<MultiplesPromotion>> Get()
         {
-            var items = _multiples.GetAllItems();
+            List<MultiplesPromotion> items = _multiples.GetAllItems();
             return Ok(items);
         }
 
@@ -62,7 +62,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(MultiplesPromotion))]
         public ActionResult<MultiplesPromotion> Get(string itemName)
         {
-            var item = _multiples.GetItem(itemName);
+            MultiplesPromotion item = _multiples.GetItem(itemName);
 
             if (item == null)
             {
@@ -107,7 +107,7 @@ namespace CheckOutOrderTotalKata.Controllers
             if (_store.GetItem(value.Name) == null)
                 return BadRequest($"The item ({value.Name}) has not been set up.");
 
-            var item = _multiples.Add(value);
+            MultiplesPromotion item = _multiples.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
@@ -123,7 +123,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
-            var existingItem = _multiples.GetItem(itemName);
+            MultiplesPromotion existingItem = _multiples.GetItem(itemName);
 
             if (existingItem == null)
             {

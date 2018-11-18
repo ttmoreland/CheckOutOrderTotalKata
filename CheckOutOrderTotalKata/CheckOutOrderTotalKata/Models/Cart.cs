@@ -41,7 +41,7 @@ namespace CheckOutOrderTotalKata.Models
         public void AddPricedItems(List<CartItem> cartItems, List<StoreItem> storeItems)
         {
             StoreItem currentStoreItem;
-            foreach (var item in cartItems)
+            foreach (CartItem item in cartItems)
             {
                 currentStoreItem = storeItems.FirstOrDefault(x => x.Name == item.Name);
                 PricedItems.Add(new PricedCartItem(item.Name, item.Quantity, currentStoreItem.Price));
@@ -158,7 +158,7 @@ namespace CheckOutOrderTotalKata.Models
 
         private List<PricedCartItem> GetGroupedCartItems()
         {
-            var query = PricedItems.GroupBy(g => new { g.Name })
+            List<PricedCartItem> query = PricedItems.GroupBy(g => new { g.Name })
                                  .Select(group => new PricedCartItem
                                      {
                                          Name = group.Key.Name,

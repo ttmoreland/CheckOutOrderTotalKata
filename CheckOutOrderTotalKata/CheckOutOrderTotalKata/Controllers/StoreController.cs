@@ -38,7 +38,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(IEnumerable<StoreItem>))]
         public ActionResult<List<StoreItem>> Get()
         {
-            var items = _store.GetAllItems();
+            List<StoreItem> items = _store.GetAllItems();
             return Ok(items);
         }
 
@@ -55,7 +55,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(StoreItem))]
         public ActionResult<StoreItem> Get(string itemName)
         {
-            var item = _store.GetItem(itemName);
+            StoreItem item = _store.GetItem(itemName);
 
             if (item == null)
             {
@@ -93,8 +93,8 @@ namespace CheckOutOrderTotalKata.Controllers
             //Check for duplicate item
             if (_store.GetItem(value.Name) != null)
                 return BadRequest($"An item already exists with the name {value.Name}.");
-            
-            var item = _store.Add(value);
+
+            StoreItem item = _store.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
@@ -110,7 +110,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
-            var existingItem = _store.GetItem(itemName);
+            StoreItem existingItem = _store.GetItem(itemName);
 
             if (existingItem == null)
             {

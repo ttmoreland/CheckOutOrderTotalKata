@@ -24,7 +24,7 @@ namespace CheckOutOrderTotalKata.Util
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";
 
-                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    IExceptionHandlerFeature contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
                         await context.Response.WriteAsync(new ErrorDetails(context.Response.StatusCode, "Internal Server Error").ToString());

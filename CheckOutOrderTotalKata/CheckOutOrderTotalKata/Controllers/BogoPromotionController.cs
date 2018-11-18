@@ -46,7 +46,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [HttpGet]
         public ActionResult<List<BogoPromotion>> Get()
         {
-            var items = _bogos.GetAllItems();
+            List<BogoPromotion> items = _bogos.GetAllItems();
             return Ok(items);
         }
 
@@ -63,7 +63,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(BogoPromotion))]
         public ActionResult<BogoPromotion> Get(string itemName)
         {
-            var item = _bogos.GetItem(itemName);
+            BogoPromotion item = _bogos.GetItem(itemName);
 
             if (item == null)
             {
@@ -110,7 +110,7 @@ namespace CheckOutOrderTotalKata.Controllers
             if (_store.GetItem(value.Name) == null)
                 return BadRequest($"The item ({value.Name}) has not been set up.");
 
-            var item = _bogos.Add(value);
+            BogoPromotion item = _bogos.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
@@ -126,7 +126,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
-            var existingItem = _bogos.GetItem(itemName);
+            BogoPromotion existingItem = _bogos.GetItem(itemName);
 
             if (existingItem == null)
             {

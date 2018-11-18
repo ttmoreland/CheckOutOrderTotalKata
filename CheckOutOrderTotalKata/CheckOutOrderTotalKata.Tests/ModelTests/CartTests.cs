@@ -19,7 +19,7 @@ namespace CheckOutOrderTotalKata.ModelTests
 
         public CartTests()
         {
-            var cache = new MemoryCache(new MemoryCacheOptions());
+            MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
             _cart = new CartServiceMock(cache);
             _store = new StoreServiceMock(cache);
             _markdowns = new MarkdownPromotionServiceMock(cache);

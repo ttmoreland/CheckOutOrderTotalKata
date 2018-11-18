@@ -72,7 +72,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(IEnumerable<CartItem>))]
         public ActionResult<List<CartItem>> Get()
         {
-            var items = _cart.GetAllItems();
+            List<CartItem> items = _cart.GetAllItems();
             return Ok(items);
         }
 
@@ -117,7 +117,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(CartItem))]
         public ActionResult<CartItem> Get(string itemName)
         {
-            var item = _cart.GetItem(itemName);
+            CartItem item = _cart.GetItem(itemName);
 
             if (item == null)
             {
@@ -156,7 +156,7 @@ namespace CheckOutOrderTotalKata.Controllers
             if (_store.GetItem(value.Name) == null)
                 return BadRequest($"The item ({value.Name}) has not been set up.");
 
-            var item = _cart.Add(value);
+            CartItem item = _cart.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
@@ -172,7 +172,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
-            var existingItem = _cart.GetItem(itemName);
+            CartItem existingItem = _cart.GetItem(itemName);
 
             if (existingItem == null)
             {

@@ -18,7 +18,7 @@ namespace CheckOutOrderTotalKata.ControllersTests
 
         public BogoPromotionControllerTests()
         {
-            var cache = new MemoryCache(new MemoryCacheOptions());
+            MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
 
             _store = new StoreServiceMock(cache);
             _bogos = new BogoPromotionServiceMock(cache);

@@ -45,7 +45,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(IEnumerable<MarkdownPromotion>))]
         public ActionResult<List<MarkdownPromotion>> Get()
         {
-            var items = _markdowns.GetAllItems();
+            List<MarkdownPromotion> items = _markdowns.GetAllItems();
             return Ok(items);
         }
 
@@ -62,7 +62,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [Produces(typeof(MarkdownPromotion))]
         public ActionResult<MarkdownPromotion> Get(string itemName)
         {
-            var item = _markdowns.GetItem(itemName);
+            MarkdownPromotion item = _markdowns.GetItem(itemName);
 
             if (item == null)
             {
@@ -106,7 +106,7 @@ namespace CheckOutOrderTotalKata.Controllers
             if (_store.GetItem(value.Name) == null)
                 return BadRequest($"The item ({value.Name}) has not been set up.");
 
-            var item = _markdowns.Add(value);
+            MarkdownPromotion item = _markdowns.Add(value);
             return CreatedAtAction("Get", new { id = item.Name }, item);
         }
 
@@ -122,7 +122,7 @@ namespace CheckOutOrderTotalKata.Controllers
         [ProducesResponseType(404)]
         public ActionResult Remove(string itemName)
         {
-            var existingItem = _markdowns.GetItem(itemName);
+            MarkdownPromotion existingItem = _markdowns.GetItem(itemName);
 
             if (existingItem == null)
             {
