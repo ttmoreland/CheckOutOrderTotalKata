@@ -23,10 +23,5 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
         }
 
         public override string CacheKey => CacheKeys.BogoPromotion;
-
-        public override BogoPromotion GetItem(string Name)
-        {
-            return GetAllItems().Where(a => a.Name == Name).FirstOrDefault();
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckOutOrderTotalKata.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,17 +10,8 @@ namespace CheckOutOrderTotalKata.Models
     /// <summary>
     /// Cart Item
     /// </summary>
-    public class CartItem
+    public class CartItem : BaseModel
     {
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        [Required]
-        public string Name { get; private set; }
-
         /// <summary>
         /// Gets the quantity.
         /// </summary>
@@ -34,9 +26,8 @@ namespace CheckOutOrderTotalKata.Models
         /// </summary>
         /// <param name="Name">The name.</param>
         /// <param name="Quantity">The quantity.</param>
-        public CartItem(string Name, decimal Quantity)
+        public CartItem(string Name, decimal Quantity) : base(Name)
         {
-            this.Name = Name;
             if (Quantity == 0)
             {
                 //Each

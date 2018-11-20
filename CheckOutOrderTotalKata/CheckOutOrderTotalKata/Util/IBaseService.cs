@@ -9,8 +9,7 @@ namespace CheckOutOrderTotalKata.Util
     /// <summary>
     /// IBaseService Interface
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IBaseService<T>
+    public interface IBaseService<T> where T :BaseModel
     {
 
         /// <summary>
@@ -31,5 +30,12 @@ namespace CheckOutOrderTotalKata.Util
         /// </summary>
         /// <param name="item">The item.</param>
         void Remove(T item);
+
+        /// <summary>
+        /// Gets the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        /// <returns></returns>
+        T GetItem(string itemName);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CheckOutOrderTotalKata.Util
 {
-    public abstract class BaseCacheService<T> : IBaseService<T>
+    public abstract class BaseCacheService<T> : IBaseService<T> where T : BaseModel
     {
         /// <summary>
         /// The cart
@@ -18,8 +18,9 @@ namespace CheckOutOrderTotalKata.Util
         /// </summary>
         private readonly IMemoryCache _cache;
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCacheService{T}" /> class.
+        /// Initializes a new instance of the <see cref="BaseCacheService{BaseModel}"/> class.
         /// </summary>
         /// <param name="cache">The cache.</param>
         public BaseCacheService(IMemoryCache cache)
@@ -66,7 +67,10 @@ namespace CheckOutOrderTotalKata.Util
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <returns></returns>
-        abstract public T GetItem(string itemName);
+        public T GetItem(string itemName)
+        {
+            return GetAllItems().FirstOrDefault(x => x.Name == itemName);
+        }
 
         /// <summary>
         /// Gets the temperament.

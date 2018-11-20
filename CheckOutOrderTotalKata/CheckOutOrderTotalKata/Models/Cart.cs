@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CheckOutOrderTotalKata.Util;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CheckOutOrderTotalKata.Models

@@ -24,10 +24,5 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
         }
 
         public override string CacheKey => CacheKeys.MultiplesPromotion;
-
-        public override MultiplesPromotion GetItem(string Name)
-        {
-            return GetAllItems().Where(a => a.Name == Name).FirstOrDefault();
-        }
     }
 }

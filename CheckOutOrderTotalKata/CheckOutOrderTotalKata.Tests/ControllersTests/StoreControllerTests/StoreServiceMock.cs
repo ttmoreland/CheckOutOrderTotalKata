@@ -27,10 +27,5 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
         }
 
         public override string CacheKey => CacheKeys.Store;
-
-        public override StoreItem GetItem(string itemName)
-        {
-            return _store.Where(a => a.Name == itemName).FirstOrDefault();
-        }
     }
 }

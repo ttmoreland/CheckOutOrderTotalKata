@@ -25,15 +25,5 @@ namespace CheckOutOrderTotalKata.Services
         /// The temperament.
         /// </value>
         public override string CacheKey => CacheKeys.Cart;
-
-        /// <summary>
-        /// Gets the item.
-        /// </summary>
-        /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
-        public override CartItem GetItem(string itemName)
-        {
-            return GetAllItems().Where(a => a.Name == itemName).FirstOrDefault();
-        }
     }
 }

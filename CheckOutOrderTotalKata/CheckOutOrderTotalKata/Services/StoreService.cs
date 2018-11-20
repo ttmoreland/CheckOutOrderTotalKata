@@ -7,7 +7,6 @@ namespace CheckOutOrderTotalKata.Services
 {
     public class StoreService : BaseCacheService<StoreItem>
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StoreService" /> class.
         /// </summary>
@@ -23,15 +22,5 @@ namespace CheckOutOrderTotalKata.Services
         /// The temperament.
         /// </value>
         public override string CacheKey => CacheKeys.Store;
-
-        /// <summary>
-        /// Gets the item.
-        /// </summary>
-        /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
-        public override StoreItem GetItem(string itemName)
-        {
-            return GetAllItems().Where(a => a.Name == itemName).FirstOrDefault();
-        }
     }
 }

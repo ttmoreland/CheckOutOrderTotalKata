@@ -26,15 +26,5 @@ namespace CheckOutOrderTotalKata.Services
         /// The temperament.
         /// </value>
         public override string CacheKey => CacheKeys.MarkdownPromotion;
-
-        /// <summary>
-        /// Gets the item.
-        /// </summary>
-        /// <param name="Name">The name.</param>
-        /// <returns></returns>
-        public override MarkdownPromotion GetItem(string Name)
-        {
-            return GetAllItems().Where(a => a.Name == Name).FirstOrDefault();
-        }
     }
 }

@@ -25,10 +25,5 @@ namespace CheckOutOrderTotalKata.ModelTests.ControllersTests
         }
 
         public override string CacheKey => CacheKeys.Cart;
-
-        public override CartItem GetItem(string itemName)
-        {
-            return GetAllItems().Where(a => a.Name == itemName).FirstOrDefault();
-        }
     }
 }

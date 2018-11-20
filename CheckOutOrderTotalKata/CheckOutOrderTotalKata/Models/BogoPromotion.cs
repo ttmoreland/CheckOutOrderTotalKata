@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckOutOrderTotalKata.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace CheckOutOrderTotalKata.Models
 {
-    public class BogoPromotion
+    public class BogoPromotion : BaseModel
     {
-        [Required]
-        public string Name { get; private set; }
-
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public int QuantityThreshold { get; private set; }
 
@@ -23,9 +21,8 @@ namespace CheckOutOrderTotalKata.Models
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}.")]
         public int QuantityLimit { get; private set; }
 
-        public BogoPromotion(string Name, int QuantityThreshold, int QuantityImpacted, int PercentOff, int QuantityLimit)
+        public BogoPromotion(string Name, int QuantityThreshold, int QuantityImpacted, int PercentOff, int QuantityLimit) : base(Name)
         {
-            this.Name = Name;
             this.QuantityThreshold = QuantityThreshold;
             this.QuantityImpacted = QuantityImpacted;
             this.PercentOff = PercentOff;

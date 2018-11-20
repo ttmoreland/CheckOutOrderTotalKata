@@ -25,15 +25,5 @@ namespace CheckOutOrderTotalKata.Services
         /// The temperament.
         /// </value>
         public override string CacheKey => CacheKeys.BogoPromotion;
-
-        /// <summary>
-        /// Gets the item.
-        /// </summary>
-        /// <param name="Name">The name.</param>
-        /// <returns></returns>
-        public override BogoPromotion GetItem(string Name)
-        {
-            return GetAllItems().Where(a => a.Name == Name).FirstOrDefault();
-        }
     }
 }

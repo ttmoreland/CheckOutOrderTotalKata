@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckOutOrderTotalKata.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace CheckOutOrderTotalKata.Models
 {
-    public class MarkdownPromotion
+    public class MarkdownPromotion : BaseModel
     {
-        [Required]
-        public string Name { get; private set; }
-
         [Range(int.MinValue, -.01, ErrorMessage = "Please enter a negative discount.")]
         public decimal Discount { get; private set; }
 
-        public MarkdownPromotion(string Name, decimal Discount)
+        public MarkdownPromotion(string Name, decimal Discount) : base(Name)
         {
-            this.Name = Name;
             this.Discount = Discount;
         }
     }
